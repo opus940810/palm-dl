@@ -43,14 +43,18 @@ with `python src/final_model.py` (about 3 min) and, for the structure path,
 
 ## Data and archive
 
-The exact UniProt 2026_03 snapshot, out-of-fold predictions, the proteome-wide
-score table and the release archive are in the Zenodo record (DOI 10.5281/zenodo.23455873)
-to keep this repository light. Raw data are CC BY 4.0 (UniProt), AlphaFold models
-CC BY 4.0.
+This repository is archived at Zenodo (DOI 10.5281/zenodo.23455873). The exact
+UniProt 2026_03 snapshot, out-of-fold predictions, the proteome-wide score table
+and the complete release archive are attached to the GitHub release `v1.0.0` as
+`palmdl-v1.0.0.zip`, because they are too large for git history. Raw data are
+CC BY 4.0 (UniProt), AlphaFold models CC BY 4.0.
 
-## Citation
+## Citation and priority
 
-See `CITATION.cff`; please cite the paper and the Zenodo DOI.
+See `CITATION.cff`; please cite the paper and the Zenodo DOI. The release timeline
+(GitHub commit 2026-10-18, Zenodo DOI 10.5281/zenodo.23455873) is recorded in
+[`PRIORITY.md`](PRIORITY.md); if you evaluate a new method, please use the canonical
+folds in `data/processed/splits_cv.csv` so that numbers stay comparable.
 
 ## Licence
 
