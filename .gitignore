@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# model binaries and caches (regenerate with src/final_model.py, src/structure_hybrid.py)
+models/
+.cache/
+.pylibs/
+
+# large generated artifacts (available in the Zenodo archive)
+results/preds_cv_all.csv
+results/scan/all_scores.csv
+results/scan/chunk_*.csv
+results/literature/xml/
+results/structure/af/
+data/raw/*.tsv
+
+# office / OS noise
+~$*
+.DS_Store
+Thumbs.db

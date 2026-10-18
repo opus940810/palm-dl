@@ -1,0 +1,80 @@
+# PalmDL prediction service
+
+Standard-library HTTP service that scores every cysteine of one or more FASTA
+proteins with the released PalmDL model (ESM-2 view + motif/physicochemical
+random forest, Platt-calibrated). No web framework is required. An optional
+structure-aware path uses AlphaFold models when they are available.
+
+## Run
+
+```powershell
+$py = "<python.exe>"
+$env:PYTHONPATH = "<workspace>\.pylibs"
+$env:PALMDL_THREADS = "4"
+
+# interactive server (sequence-only)
+& $py palm-dl\server\app.py                 # http://127.0.0.1:8765
+& $py palm-dl\server\app.py --port 9000     # custom port
+
+# structure-aware path: AlphaFold models are looked up by accession
+& $py palm-dl\server\app.py --structure
+& $py palm-dl\server\app.py --structure --no-fetch   # cache only, never download
+
+# batch mode (no server)
+& $py palm-dl\server\app.py --batch palm-dl\server\example.fa `
+      --out palm-dl\server\example_predictions.csv --threshold 0.5 --structure
+```
+
+The first request loads the model (a few seconds); subsequent requests reuse it.
+
+## Endpoints
+
+| Method | Path | Body | Response |
+|---|---|---|---|
+| GET | `/` | — | HTML form |
+| GET | `/health` | — | model metadata, structure availability, cached model count |
+| POST | `/predict` | form fields `fasta`, `threshold`, optional `structure`; or JSON `{"fasta": "...", "threshold": 0.5, "structure": true}` | ranked table (HTML) or JSON |
+
+Example:
+
+```powershell
+$body = @{ fasta = (Get-Content palm-dl\server\example.fa -Raw); threshold = 0.9; structure = $true } | ConvertTo-Json
+Invoke-RestMethod -Uri http://127.0.0.1:8765/predict -Method Post -Body $body -ContentType "application/json"
+```
+
+## Structure-aware path
+
+Enabled with `--structure` (or `"structure": true` in a JSON request). For each
+record the service takes the FASTA header's first token as a UniProt accession,
+looks for a cached AlphaFold PDB (`results/structure/af/<ACC>.pdb`) and, unless
+`--no-fetch` is given, downloads it from the AlphaFold DB API if missing. For
+every cysteine whose residue is modelled, the hybrid forest
+(`models/rf_hybrid_struct.joblib`, trained on all 71,594 sites with a
+missing-structure indicator) replaces the sequence forest, and its logit-average
+with the ESM view is calibrated by a dedicated Platt model fitted on out-of-fold
+predictions. Cysteines without a modelled residue, and proteins without a model,
+fall back to the sequence path; the chosen path is reported per protein in the
+`path` column.
+
+Training-time standardisation of the structural block is stored inside the
+artifact (`scaler_mean`, `scaler_std`, `median`), so inference uses exactly the
+training transformation.
+
+## Choosing a threshold
+
+- `0.34` — natural-prevalence operating point of the sequence model.
+- `0.5` — convenient default for ranking; roughly the balanced operating point.
+- `0.957` — the proteome-wide **5% FDR** tier (manuscript Table 8); use this for a
+  high-confidence shortlist.
+- `0.864` — the 30% FDR tier, for discovery rather than confirmation.
+
+## Notes
+
+- Structure helps where annotations already exist (forest AUC 0.890 → 0.910;
+  hybrid full model 0.946 → 0.949, manuscript §2.12) but does not rescue the
+  motif-atypical literature sites, so the default remains sequence-only.
+- Structure lookup needs the record name to be a UniProt accession; arbitrary
+  headers will use the sequence path.
+- No authentication and no upload limit beyond memory: intended for local or
+  intranet use. Put it behind a reverse proxy if exposed.
+- Output columns: protein, position, probability, 31-residue window, path, rank.

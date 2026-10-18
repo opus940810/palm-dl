@@ -1,0 +1,16 @@
+services:
+  palm-dl:
+    build: ..
+    image: palm-dl:1.0.0
+    ports:
+      - "8765:8765"
+    volumes:
+      # Model binaries (rf_final, esm_final, calibrators, rf_hybrid_struct).
+      # Regenerate with: python src/final_model.py && python src/structure_hybrid.py
+      - ../models:/app/models:ro
+      # AlphaFold cache for the structure path (optional).
+      - ../results/structure/af:/app/results/structure/af:ro
+    environment:
+      PALMDL_THREADS: "4"
+    command: ["python", "server/app.py", "--host", "0.0.0.0", "--port", "8765", "--structure", "--no-fetch"]
+    restart: unless-stopped

@@ -1,0 +1,12 @@
+{
+  "n_rows": 71594,
+  "n_structured": 1974,
+  "auc_all_base": 0.9463842198212055,
+  "auc_all_hybrid": 0.9492928745746548,
+  "delta_all": 0.002908654753449302,
+  "auc_struct_base": 0.8987666360137985,
+  "auc_struct_hybrid": 0.9177923444417406,
+  "delta_struct": 0.01902570842794211,
+  "folds_positive_all": 5,
+  "folds_positive_struct": 4
+}

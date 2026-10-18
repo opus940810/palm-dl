@@ -1,0 +1,11 @@
+{
+  "n_targets": 262286,
+  "n_proteins": 19814,
+  "n_known_uniprot": 572,
+  "n_literature": 136,
+  "shortlist_1pct": 217,
+  "shortlist_5pct": 322,
+  "proteins_5pct": 204,
+  "median_sites_per_protein_5pct": 1.0,
+  "max_sites_per_protein_5pct": 6
+}

@@ -1,0 +1,12 @@
+{
+  "scan_top322_known_base": 302,
+  "scan_top322_known_hybrid": 321,
+  "scan_top322_overlap": 272,
+  "scan_top668_known_base": 412,
+  "scan_top668_known_hybrid": 466,
+  "scan_top668_overlap": 569,
+  "lit_auc_base_rf": 0.6406161914126515,
+  "lit_auc_hybrid_rf": 0.6266928875778432,
+  "n_scan": 6164,
+  "n_lit": 700
+}

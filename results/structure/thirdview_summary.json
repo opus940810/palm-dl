@@ -1,0 +1,7 @@
+{
+  "auc_seq_ensemble": 0.9176386395863748,
+  "auc_struct_ensemble": 0.923568229264584,
+  "delta": 0.005929589678209069,
+  "positive_folds": 5,
+  "folds": 5
+}

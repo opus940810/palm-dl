@@ -1,0 +1,18 @@
+{
+  "n_literature_sites": 136,
+  "n_literature_proteins": 109,
+  "n_papers": 91,
+  "fraction_in_uniprot": 0.022058823529411766,
+  "threshold": 0.039582798283166125,
+  "n_novel": 133,
+  "n_novel_proteins": 106,
+  "novel_vs_neg_auc": 0.5875064192881503,
+  "novel_vs_neg_aupr": 0.27522048817534356,
+  "novel_recall_at_thr": 0.2932330827067669,
+  "within_protein_auc_weighted": 0.6035623409669211,
+  "within_protein_auc_mean": 0.5766292735042735,
+  "n_within_protein_tests": 104,
+  "known_recall_at_thr": 1.0,
+  "pwm_auc_novel": 0.5373503812069578,
+  "model_auc_novel": 0.5875064192881503
+}

@@ -1,0 +1,13 @@
+{
+  "n_curated": 99,
+  "n_proteins": 82,
+  "fdr1_hits": 0,
+  "fdr1_expected": 0.0819067735220332,
+  "fdr1_enrichment": 0.0,
+  "fdr5_hits": 1,
+  "fdr5_expected": 0.12153908329075894,
+  "fdr5_enrichment": 8.227806010414707,
+  "fdr20_hits": 2,
+  "fdr20_expected": 0.2521369802429409,
+  "fdr20_enrichment": 7.93219621363334
+}

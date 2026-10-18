@@ -1,0 +1,9 @@
+{
+  "n_literature": 133,
+  "n_background": 4000,
+  "literature_vs_background_auc": 0.6067518796992482,
+  "literature_vs_background_ap": 0.06153346665331453,
+  "literature_vs_background_pwm_auc": NaN,
+  "literature_mean_p": 0.07315540316079577,
+  "background_mean_p": 0.028982554313788166
+}

@@ -1,0 +1,17 @@
+{
+  "n_sites": 1974,
+  "n_pos": 476,
+  "n_proteins": 479,
+  "base_auc": 0.8902587029765249,
+  "struct_auc": 0.9100510114013396,
+  "mean_delta": 0.01979230842481481,
+  "folds": 5,
+  "delta_positive_folds": 5,
+  "structural_feature_stats": {
+    "plddt_site_median": 89.12,
+    "plddt_pos_mean": 65.78693277310924,
+    "plddt_neg_mean": 81.15295060080106,
+    "packing_pos_mean": 4.804621848739496,
+    "packing_neg_mean": 10.867823765020027
+  }
+}

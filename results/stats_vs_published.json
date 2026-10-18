@@ -1,0 +1,13 @@
+{
+  "human_auc": 0.9006276649253904,
+  "n": 55878,
+  "n_pos": 572,
+  "ci95": [
+    0.8850450323220966,
+    0.9155877977348266
+  ],
+  "p_leq_0900": 0.4605,
+  "p_leq_0855": 0.0,
+  "n_boot": 4000,
+  "interpretation": "statistically indistinguishable from the published human AUC 0.900; clearly above the published general AUC 0.855"
+}

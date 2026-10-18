@@ -1,0 +1,19 @@
+{
+  "title": "PalmDL: leakage-aware deep learning and benchmark for protein S-palmitoylation site prediction",
+  "upload_type": "software",
+  "description": "Code, processed data, fold assignments and results for PalmDL: a leakage-controlled benchmark, an ESM-2 + random-forest ensemble, a structure-aware variant, a proteome-wide FDR-controlled shortlist and a prediction service.",
+  "creators": [
+    {
+      "name": "[Family name], [Given name]",
+      "affiliation": "[Affiliation]"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "S-palmitoylation",
+    "post-translational modification",
+    "deep learning",
+    "benchmark leakage"
+  ],
+  "access_right": "open"
+}

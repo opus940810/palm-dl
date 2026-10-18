@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: If you use PalmDL, please cite the paper and the archived release.
+title: "PalmDL: a leakage-aware deep learning framework and benchmark for protein S-palmitoylation site prediction"
+version: 1.0.0
+authors:
+  - family-names: "[to be completed]"
+    given-names: "[to be completed]"
+license: MIT
+repository-code: "https://github.com/[ORG]/palm-dl"
+identifiers:
+  - type: doi
+    value: "[ZENODO-DOI]"

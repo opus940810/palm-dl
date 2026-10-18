@@ -1,0 +1,10 @@
+{
+  "n_sites": 6164,
+  "n_known": 466,
+  "top322_known_seq": 227,
+  "top322_known_struct": 211,
+  "top322_overlap": 278,
+  "top668_known_seq": 392,
+  "top668_known_struct": 373,
+  "top668_overlap": 630
+}
