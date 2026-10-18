@@ -1,6 +1,6 @@
 # PalmDL
 
-[![DOI](https://zenodo.org/badge/DOI/[ZENODO-DOI].svg)](https://doi.org/[ZENODO-DOI])
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23455873.svg)](https://doi.org/10.5281/zenodo.23455873)
 [![License: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 [![License: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey.svg)](LICENSE-DATA)
 
@@ -44,7 +44,7 @@ with `python src/final_model.py` (about 3 min) and, for the structure path,
 ## Data and archive
 
 The exact UniProt 2026_03 snapshot, out-of-fold predictions, the proteome-wide
-score table and the release archive are in the Zenodo record (DOI [ZENODO-DOI])
+score table and the release archive are in the Zenodo record (DOI 10.5281/zenodo.23455873)
 to keep this repository light. Raw data are CC BY 4.0 (UniProt), AlphaFold models
 CC BY 4.0.
 
