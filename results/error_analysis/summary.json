@@ -1,48 +1,64 @@
 {
   "tier": {
     "experimental": {
-      "n_pos": 506,
-      "auc": 0.9083811560506811,
-      "aupr": 0.29281104762085597
+      "n_pos": 455,
+      "auc": 0.9065251034252658,
+      "aupr": 0.17572968500213318
     },
     "inferred": {
-      "n_pos": 6299,
-      "auc": 0.9597160760065541,
-      "aupr": 0.8548724729003131
+      "n_pos": 3969,
+      "auc": 0.9468113907255307,
+      "aupr": 0.6822577486935097
     }
   },
   "fdr": [
     {
       "target_fdr": 0.01,
-      "threshold": 0.6329073015150063,
-      "val_fdr": 0.00982928091050181,
-      "test_precision": 0.9831223628691983,
-      "test_recall": 0.4451138868479059,
-      "n_predicted": 3081
+      "threshold": 0.568149008969726,
+      "threshold_range": [
+        0.5154540561220069,
+        0.6248340508197654
+      ],
+      "n_folds": 5,
+      "test_precision": 0.9529914529914529,
+      "test_recall": 0.20162748643761302,
+      "n_predicted": 936
     },
     {
       "target_fdr": 0.05,
-      "threshold": 0.5722810545724295,
-      "val_fdr": 0.049943672549755916,
-      "test_precision": 0.9345584939489019,
-      "test_recall": 0.6127847171197649,
-      "n_predicted": 4462
+      "threshold": 0.5301186309621406,
+      "threshold_range": [
+        0.4680712581420045,
+        0.5792990745147102
+      ],
+      "n_folds": 5,
+      "test_precision": 0.9034931912374186,
+      "test_recall": 0.3449367088607595,
+      "n_predicted": 1689
     },
     {
       "target_fdr": 0.1,
-      "threshold": 0.531452713330681,
-      "val_fdr": 0.09987357774968394,
-      "test_precision": 0.8778669724770642,
-      "test_recall": 0.6749448934606906,
-      "n_predicted": 5232
+      "threshold": 0.5077368889509579,
+      "threshold_range": [
+        0.4373260570555026,
+        0.5566181548143987
+      ],
+      "n_folds": 5,
+      "test_precision": 0.8553639846743295,
+      "test_recall": 0.4037070524412297,
+      "n_predicted": 2088
     },
     {
       "target_fdr": 0.2,
-      "threshold": 0.4626354619682772,
-      "val_fdr": 0.1999490575649516,
-      "test_precision": 0.7876848041457095,
-      "test_recall": 0.7594415870683321,
-      "n_predicted": 6561
+      "threshold": 0.4569730257145121,
+      "threshold_range": [
+        0.4033077736811368,
+        0.5278817152132099
+      ],
+      "n_folds": 5,
+      "test_precision": 0.7655997413514387,
+      "test_recall": 0.5352622061482821,
+      "n_predicted": 3093
     }
   ]
 }

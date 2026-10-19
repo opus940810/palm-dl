@@ -6,6 +6,7 @@ Outputs (float16, rows aligned with data/processed/sites.csv order):
 """
 from __future__ import annotations
 
+import os
 import sys
 import time
 
@@ -16,7 +17,7 @@ import torch
 import esm
 from config import DATA_PROC, EMB, ROOT, WINDOW
 
-torch.set_num_threads(12)
+torch.set_num_threads(int(os.environ.get("PALMDL_THREADS", "4")))
 CKPT = ROOT.parent / ".cache" / "esm2_t12_35M_UR50D.pt"
 
 

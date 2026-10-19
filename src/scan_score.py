@@ -56,6 +56,8 @@ def build_targets() -> pd.DataFrame:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--max-chunks", type=int, default=0)
+    ap.add_argument("--view", default="esm", choices=["esm", "rf"],
+                    help="esm = released ensemble using precomputed embeddings; rf = forest only")
     args = ap.parse_args()
 
     tgt_path = OUT / "targets.csv"
@@ -64,12 +66,26 @@ def main() -> None:
     else:
         tgt = build_targets()
         tgt.to_csv(tgt_path, index=False)
-    print(f"targets: {len(tgt)} cysteines in {tgt.acc.nunique()} proteins", flush=True)
+    print(f"targets: {len(tgt)} cysteines in {tgt.acc.nunique()} proteins (view={args.view})", flush=True)
 
     rf, net, cal, meta = load()
+    import joblib
+    cal_rf = joblib.load(MODELS / "calibrator_rf.joblib")
     n_chunks = int(np.ceil(len(tgt) / CHUNK))
     if args.max_chunks:
         n_chunks = min(n_chunks, args.max_chunks)
+
+    E_all = None
+    if args.view == "esm":
+        files = sorted((OUT / "emb").glob("chunk_*.npz"))
+        if not files:
+            raise SystemExit("no embedding chunks; run src/scan_embed.py first")
+        means = [np.load(f)["mean"] for f in files]
+        centers = [np.load(f)["center"] for f in files]
+        E_all = np.hstack([np.vstack(means), np.vstack(centers)])
+        print(f"embeddings: {E_all.shape}", flush=True)
+        if len(E_all) != len(tgt):
+            raise SystemExit(f"embedding rows {len(E_all)} != targets {len(tgt)}")
 
     t0 = time.time()
     for c in range(n_chunks):
@@ -77,17 +93,20 @@ def main() -> None:
         if path.exists():
             continue
         part = tgt.iloc[c * CHUNK:(c + 1) * CHUNK]
-        from final_model import embed_windows
         from features import context_features, encode_flat
-        import torch
 
         X = encode_flat(part.window.tolist())
         C = context_features(part)
         p_rf = rf.predict_proba(np.hstack([X, C]))[:, 1]
-        E = embed_windows(part.window.tolist(), bs=192)
-        with torch.no_grad():
-            p_esm = torch.sigmoid(net(torch.as_tensor(E), torch.as_tensor(C))).numpy()
-        p = cal.predict_proba((0.5 * (logit(p_rf) + logit(p_esm))).reshape(-1, 1))[:, 1]
+        if args.view == "esm":
+            import torch
+            E = E_all[c * CHUNK:(c + 1) * CHUNK].astype(np.float32)
+            with torch.no_grad():
+                p_esm = torch.sigmoid(net(torch.as_tensor(E), torch.as_tensor(C))).numpy()
+            p = cal.predict_proba((0.5 * (logit(p_rf) + logit(p_esm))).reshape(-1, 1))[:, 1]
+        else:
+            p_esm = np.full(len(part), np.nan)
+            p = cal_rf.predict_proba(logit(p_rf).reshape(-1, 1))[:, 1]
         pd.DataFrame({"acc": part.acc.values, "pos": part.pos.values,
                       "p_rf": p_rf, "p_esm": p_esm, "p": p}).to_csv(path, index=False)
         done = c + 1
@@ -100,10 +119,12 @@ def main() -> None:
         rng = np.random.default_rng(0)
         idx = rng.choice(len(tgt), size=min(DECOY_N, len(tgt)), replace=False)
         d = tgt.iloc[idx].copy()
-        d["window"] = [w[:15] + "A" + w[16:] for w in d.window]
-        from final_model import score
-        pred = score(d[["acc", "pos", "window", "compartment", "protein_length"]])
-        pd.DataFrame({"acc": d.acc.values, "pos": d.pos.values, "p": pred.p.values}).to_csv(
+        from features import context_features, encode_flat
+        X = encode_flat(d.window.tolist())
+        C = context_features(d)
+        p_rf = rf.predict_proba(np.hstack([X, C]))[:, 1]
+        p = cal_rf.predict_proba(logit(p_rf).reshape(-1, 1))[:, 1]
+        pd.DataFrame({"acc": d.acc.values, "pos": d.pos.values, "p": p}).to_csv(
             decoy_path, index=False)
         print("decoys scored", flush=True)
 

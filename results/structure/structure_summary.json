@@ -1,17 +1,17 @@
 {
-  "n_sites": 1974,
-  "n_pos": 476,
-  "n_proteins": 479,
-  "base_auc": 0.8902587029765249,
-  "struct_auc": 0.9100510114013396,
-  "mean_delta": 0.01979230842481481,
+  "n_sites": 1950,
+  "n_pos": 463,
+  "n_proteins": 476,
+  "base_auc": 0.8903970492037429,
+  "struct_auc": 0.9109111616857334,
+  "mean_delta": 0.02051411248199033,
   "folds": 5,
-  "delta_positive_folds": 5,
+  "delta_positive_folds": 4,
   "structural_feature_stats": {
-    "plddt_site_median": 89.12,
-    "plddt_pos_mean": 65.78693277310924,
-    "plddt_neg_mean": 81.15295060080106,
-    "packing_pos_mean": 4.804621848739496,
-    "packing_neg_mean": 10.867823765020027
+    "plddt_site_median": 89.19,
+    "plddt_pos_mean": 66.1889848812095,
+    "plddt_neg_mean": 81.06350369872226,
+    "packing_pos_mean": 4.928725701943844,
+    "packing_neg_mean": 10.79219905850706
   }
 }

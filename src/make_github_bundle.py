@@ -84,9 +84,9 @@ motif/physicochemical random forest, and provides:
 - a **structure-aware variant** using AlphaFold pLDDT/packing (graceful fallback),
 - a **prediction service** (HTTP + batch, standard library only).
 
-Headline numbers: cluster-held-out AUC **0.956** (95% CI 0.953–0.959); human test
-sites AUC **0.901** (0.885–0.915), statistically indistinguishable from the best
-published human value 0.900 (bootstrap P = 0.46); strict species holdout AUC 0.822.
+Headline numbers: cluster-held-out AUC **0.944** (95% CI 0.940–0.948); human test
+sites AUC **0.914** (0.900–0.927), marginally above the best published human value
+0.900 (bootstrap P = 0.025); strict species holdout AUC 0.885.
 
 ## Quick start
 
@@ -195,10 +195,40 @@ ZENODO = {
 }
 
 
+
+CHANGELOG = """# Changelog
+
+## v2 (19 October 2026) - label correction
+
+- The v1 dataset filtered lipidation notes with the substring `"palmitoyl"`, admitting
+  2,381 N-/O-palmitoyl sites (35% of positives). v2 keeps only S-palmitoyl cysteine on a
+  cysteine residue: **4,424 positives** (449 experimental, 3,975 inferred), 67,266 sites,
+  21,568 proteins, 786 organisms, 557 human positives.
+- Splits: every protein (including background negatives) is clustered; groups sharing an
+  exact window are merged. Cross-fold identical windows: **0** (v1: 751 windows).
+- Results corrected throughout: cluster CV AUC 0.944 (0.940-0.948), MCC 0.611; human
+  0.914 (0.900-0.927); species holdout 0.885; hard negatives 0.956.
+- The "UniProt annotation error" claim for the 66 non-cysteine sites is withdrawn: those
+  were legitimate N6-/N-/O-palmitoyl annotations admitted by our filter.
+- Cross-species matrix reduced to six species; bacterial N-palmitoyl sites removed.
+- Proteome scan rescored with the forest view (ESM view not tractable at proteome scale
+  on the available CPU host); tiers reported as candidate rankings.
+- ESM-2 view omitted from the scan; the released prediction service still uses the full
+  sequence ensemble.
+"""
+
+
 def main() -> None:
     if OUT.exists():
-        shutil.rmtree(OUT)
-    OUT.mkdir(parents=True)
+        # keep .git so the published history survives regeneration
+        for child in OUT.iterdir():
+            if child.name == ".git":
+                continue
+            if child.is_dir():
+                shutil.rmtree(child)
+            else:
+                child.unlink()
+    OUT.mkdir(parents=True, exist_ok=True)
     n = 0
     for rel in INCLUDE:
         src, dst = ROOT / rel, OUT / rel
@@ -216,6 +246,7 @@ def main() -> None:
     (OUT / "CITATION.cff").write_text(CITATION, encoding="utf-8")
     (OUT / "requirements.txt").write_text(REQUIREMENTS, encoding="utf-8")
     (OUT / ".zenodo.json").write_text(json.dumps(ZENODO, indent=2), encoding="utf-8")
+    (OUT / "CHANGELOG.md").write_text(CHANGELOG, encoding="utf-8")
     (OUT / ".gitignore").write_text(GITIGNORE, encoding="utf-8")
     (OUT / ".gitattributes").write_text(GITATTRIBUTES, encoding="utf-8")
     (OUT / "README.md").write_text(README, encoding="utf-8")

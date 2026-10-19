@@ -1,6 +1,6 @@
 # PalmDL
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23455873.svg)](https://doi.org/10.5281/zenodo.23455873)
+[![DOI](https://zenodo.org/badge/DOI/[ZENODO-DOI].svg)](https://doi.org/[ZENODO-DOI])
 [![License: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 [![License: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey.svg)](LICENSE-DATA)
 
@@ -14,9 +14,9 @@ motif/physicochemical random forest, and provides:
 - a **structure-aware variant** using AlphaFold pLDDT/packing (graceful fallback),
 - a **prediction service** (HTTP + batch, standard library only).
 
-Headline numbers: cluster-held-out AUC **0.956** (95% CI 0.953–0.959); human test
-sites AUC **0.901** (0.885–0.915), statistically indistinguishable from the best
-published human value 0.900 (bootstrap P = 0.46); strict species holdout AUC 0.822.
+Headline numbers: cluster-held-out AUC **0.944** (95% CI 0.940–0.948); human test
+sites AUC **0.914** (0.900–0.927), marginally above the best published human value
+0.900 (bootstrap P = 0.025); strict species holdout AUC 0.885.
 
 ## Quick start
 
@@ -43,18 +43,14 @@ with `python src/final_model.py` (about 3 min) and, for the structure path,
 
 ## Data and archive
 
-This repository is archived at Zenodo (DOI 10.5281/zenodo.23455873). The exact
-UniProt 2026_03 snapshot, out-of-fold predictions, the proteome-wide score table
-and the complete release archive are attached to the GitHub release `v1.0.0` as
-`palmdl-v1.0.0.zip`, because they are too large for git history. Raw data are
-CC BY 4.0 (UniProt), AlphaFold models CC BY 4.0.
+The exact UniProt 2026_03 snapshot, out-of-fold predictions, the proteome-wide
+score table and the release archive are in the Zenodo record (DOI [ZENODO-DOI])
+to keep this repository light. Raw data are CC BY 4.0 (UniProt), AlphaFold models
+CC BY 4.0.
 
-## Citation and priority
+## Citation
 
-See `CITATION.cff`; please cite the paper and the Zenodo DOI. The release timeline
-(GitHub commit 2026-10-18, Zenodo DOI 10.5281/zenodo.23455873) is recorded in
-[`PRIORITY.md`](PRIORITY.md); if you evaluate a new method, please use the canonical
-folds in `data/processed/splits_cv.csv` so that numbers stay comparable.
+See `CITATION.cff`; please cite the paper and the Zenodo DOI.
 
 ## Licence
 

@@ -15,12 +15,5 @@
     "deep learning",
     "benchmark leakage"
   ],
-  "access_right": "open",
-  "related_identifiers": [
-    {
-      "relation": "isIdenticalTo",
-      "identifier": "https://github.com/opus940810/palm-dl",
-      "scheme": "url"
-    }
-  ]
+  "access_right": "open"
 }

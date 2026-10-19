@@ -6,7 +6,7 @@ authors:
   - family-names: "[to be completed]"
     given-names: "[to be completed]"
 license: MIT
-repository-code: "https://github.com/opus940810/palm-dl"
+repository-code: "https://github.com/[ORG]/palm-dl"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.23455873"
+    value: "[ZENODO-DOI]"

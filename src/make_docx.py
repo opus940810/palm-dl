@@ -85,9 +85,9 @@ def add_result_tables(doc: Document) -> None:
                  f"{r.nat_mcc:.3f}", f"{r.bal_mcc:.3f}", f"{r.nat_acc:.3f}",
                  f"{r.nat_sn:.3f}", f"{r.nat_sp:.3f}"] for r in d.itertuples()]
         add_table(doc, ["Model", "AUC", "AUPR", "MCC", "Balanced MCC", "Accuracy", "Sn", "Sp"], rows)
-        doc.add_paragraph("6,805 positives and 64,789 negatives (71,594 sites, 23,897 proteins). "
-                          "MCC and accuracy use thresholds selected on inner validation folds; "
-                          "balanced MCC uses class-balanced test subsamples.").runs[0].font.size = Pt(8)
+        doc.add_paragraph("4,424 S-palmitoyl cysteine positives and 62,842 negatives (67,266 sites, "
+                          "21,568 proteins). MCC and accuracy use thresholds selected on inner "
+                          "validation folds; balanced MCC uses class-balanced test subsamples.").runs[0].font.size = Pt(8)
 
     p2 = tab_dir / "table6_leakage.csv"
     if p2.exists():
@@ -123,7 +123,7 @@ def add_result_tables(doc: Document) -> None:
         add_table(doc, ["Model", "Multi-species AUC", "Multi-species bal. MCC",
                         "Human-only AUC", "Human-only bal. MCC",
                         "Species holdout AUC", "Species holdout bal. MCC"], rows)
-        doc.add_paragraph("Human test sites: 572 positives in 316 proteins. The species holdout uses "
+        doc.add_paragraph("Human test sites: 557 positives in 312 proteins. The species holdout uses "
                           "no human data and removes every cluster containing a human protein.").runs[0].font.size = Pt(8)
 
 

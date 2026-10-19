@@ -1,13 +1,15 @@
 {
-  "human_auc": 0.9006276649253904,
-  "n": 55878,
-  "n_pos": 572,
+  "human_auc_fold_mean": 0.9135845611030969,
+  "human_auc_pooled": 0.9122489084763113,
+  "n": 55848,
+  "n_pos": 557,
+  "n_folds": 5,
   "ci95": [
-    0.8850450323220966,
-    0.9155877977348266
+    0.9000365664256916,
+    0.9264161995876995
   ],
-  "p_leq_0900": 0.4605,
+  "p_leq_0900": 0.025,
   "p_leq_0855": 0.0,
   "n_boot": 4000,
-  "interpretation": "statistically indistinguishable from the published human AUC 0.900; clearly above the published general AUC 0.855"
+  "interpretation": "per-fold mean human AUC with within-fold bootstrap; compare with the published values 0.900 (human) and 0.855 (general)"
 }

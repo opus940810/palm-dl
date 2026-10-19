@@ -34,16 +34,23 @@ def pooled(df: pd.DataFrame, va: pd.DataFrame) -> dict:
     thr = {k: find_threshold(p.y.values, p.p.values) for k, p in va.groupby("fold")}
     # thresholds must be indexed by the fold values present in df
     y, pred = _scores(df, thr)
-    yp, p = y, df.p.values
+    yp = y
     tn = int(((yp == 0) & (pred == 0)).sum())
     fp = int(((yp == 0) & (pred == 1)).sum())
     fn = int(((yp == 1) & (pred == 0)).sum())
     tp = int(((yp == 1) & (pred == 1)).sum())
     denom = np.sqrt(max((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn), 1e-9))
+    # discrimination is averaged inside folds: each fold is a separate model with
+    # its own score calibration, so pooling raw probabilities is biased
+    aucs, auprs = [], []
+    for _, part in df.groupby("fold"):
+        if part.y.nunique() > 1:
+            aucs.append(roc_auc_score(part.y, part.p))
+            auprs.append(average_precision_score(part.y, part.p))
     return {
         "n": len(df), "n_pos": int(yp.sum()),
-        "auc": roc_auc_score(yp, p) if len(np.unique(yp)) > 1 else np.nan,
-        "aupr": average_precision_score(yp, p),
+        "auc": float(np.mean(aucs)) if aucs else np.nan,
+        "aupr": float(np.mean(auprs)) if auprs else np.nan,
         "mcc": (tp * tn - fp * fn) / denom,
         "acc": (tp + tn) / len(df),
         "sn": tp / max(tp + fn, 1), "sp": tn / max(tn + fp, 1),

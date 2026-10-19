@@ -1,12 +1,15 @@
 """Build the site-level dataset from the raw UniProt TSV exports.
 
-Label definition
-----------------
-positive : cysteine annotated with a 'Lipidation' feature whose note is
-           "S-palmitoyl cysteine".
+Label definition (v2, after the label audit of 2026-10-19)
+----------------------------------------------------------
+positive : cysteine annotated *specifically* with "S-palmitoyl cysteine"
+           (the note may carry a qualifying suffix after a semicolon); the
+           canonical residue must be C.  N-palmitoyl cysteine, N6-palmitoyl
+           lysine and O-palmitoyl Ser/Thr are **not** positives: they are
+           different chemical modifications and are excluded.
 negative : (i)  other cysteines of the same protein that are not annotated and
-                whose +/-15 window does not overlap an annotated site
-                ("hard" / same-protein negatives);
+                whose +/-15 window does not overlap *any* palmitoylation
+                annotation of that protein ("hard" / same-protein negatives);
            (ii) cysteines of reviewed human proteins that carry no lipidation
                 feature at all ("background" negatives).
 
@@ -32,6 +35,19 @@ TOPO_RE = re.compile(r'TOPO_DOM (\d+)(?:\.\.(\d+))?;\s*/note="([^"]*)";(?:\s*/ev
 SIGNAL_RE = re.compile(r'SIGNAL (\d+)\.\.(\d+)')
 
 EXPERIMENTAL = ("ECO:0000269", "ECO:0007744", "ECO:0007005", "ECO:0006056")
+
+S_PALM = "s-palmitoyl cysteine"
+
+
+def is_s_palmitoyl_cys(note: str, residue: str) -> bool:
+    """True only for S-palmitoyl cysteine annotations on a cysteine residue.
+
+    UniProt writes e.g. "S-palmitoyl cysteine", "S-palmitoyl cysteine; by
+    DHHC2", but also "N-palmitoyl cysteine" and "N6-palmitoyl lysine", which
+    share the substring "palmitoyl" and were wrongly admitted by the first
+    version of this filter.
+    """
+    return residue == "C" and S_PALM in note.lower()
 
 
 def parse_lipidation(cell: str) -> list[tuple[int, str, str]]:
@@ -94,13 +110,21 @@ def build() -> None:
 
     rows = []
     prot_rows = []
+    audit = []
     for _, r in lip.iterrows():
         seq = r["Sequence"].strip().upper()
         acc = r["Entry"]
         feats = parse_lipidation(r.get("Lipidation", ""))
-        sites = [(p, note, ev) for p, note, ev in feats if "palmitoyl" in note.lower()]
+        # every palmitoylation annotation, whatever its chemistry: these define
+        # the exclusion zones for hard negatives
+        palm_pos = {p for p, note, _ in feats if "palmitoyl" in note.lower()}
+        # positives: strict S-palmitoyl cysteine, canonical residue must be C
+        sites = [(p, note, ev) for p, note, ev in feats
+                 if 1 <= p <= len(seq) and is_s_palmitoyl_cys(note, seq[p - 1])]
         if not sites:
             continue
+        for p, note, ev in feats:
+            audit.append((acc, p, note))
         seq = re.sub(r"[^ACDEFGHIKLMNPQRSTVWY]", "X", seq)
         topo = parse_topology(r.get("Topological domain", ""))
         sig = None
@@ -113,16 +137,15 @@ def build() -> None:
                  gene=r.get("Gene Names", ""), length=len(seq), n_sites=len(site_pos))
         )
         for p, note, ev in sites:
-            if p < 1 or p > len(seq):
-                continue
             rows.append(dict(acc=acc, pos=p, label=1, residue=seq[p - 1],
                              source="uniprot_exp" if is_experimental(ev) else "uniprot_inferred",
                              evidence=ev, compartment=compartment(p, topo, sig),
                              window=window(seq, p), protein_length=len(seq),
                              organism=r.get("Organism (ID)", ""), gene=r.get("Gene Names", "")))
-        # hard negatives: unannotated cysteines of the same protein
+        # hard negatives: unannotated cysteines of the same protein, away from
+        # ANY palmitoylation site (including N-/O-linked ones)
         cand = [i + 1 for i, aa in enumerate(seq) if aa == "C" and (i + 1) not in site_pos]
-        cand = [p for p in cand if all(abs(p - s) > HALF for s in site_pos)]
+        cand = [p for p in cand if all(abs(p - s) > HALF for s in palm_pos)]
         # deterministic, spread-out subset of at most 4 per protein
         if len(cand) > 4:
             step = len(cand) / 4
@@ -158,6 +181,8 @@ def build() -> None:
     df["is_human"] = df["organism"].astype(str).str.startswith("9606")
     df.to_csv(PROC / "sites.csv", index=False)
     pd.DataFrame(prot_rows).drop_duplicates("acc").to_csv(PROC / "proteins.csv", index=False)
+    pd.DataFrame(audit, columns=["acc", "pos", "note"]).to_csv(
+        PROC / "label_audit.csv", index=False)
 
     print(df.groupby(["source"]).size())
     print("\nlabel x source\n", pd.crosstab(df["label"], df["source"]))
@@ -166,6 +191,7 @@ def build() -> None:
     print("\nunique human positive sites:", df[(df.label == 1) & df.is_human].shape[0])
     print("unique experimental positive sites:", df[(df.label == 1) & (df.source == "uniprot_exp")].shape[0])
     print("background negatives:", n_bg, "same-protein negatives:", (df.source == "same_protein_cys").sum())
+    print("non-cysteine positive rows:", int(((df.label == 1) & (df.residue != "C")).sum()))
 
 
 if __name__ == "__main__":

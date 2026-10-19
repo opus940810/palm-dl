@@ -8,6 +8,7 @@ of the palmitoylation code transfers between organisms.
 from __future__ import annotations
 
 import json
+import os
 
 import numpy as np
 import pandas as pd
@@ -20,7 +21,7 @@ from final_model import logit
 from metrics import find_threshold, metrics_at
 from models import EmbeddingMLP, make_rf, set_seed, train_torch
 
-torch.set_num_threads(4)
+torch.set_num_threads(int(os.environ.get("PALMDL_THREADS", "1")))
 ORG = {"9606": "Human", "10090": "Mouse", "10116": "Rat", "9913": "Cattle",
        "83333": "E. coli", "3702": "A. thaliana", "9823": "Pig", "224308": "B. subtilis"}
 
@@ -39,7 +40,7 @@ def main() -> None:
                       np.load(EMB / "esm2_center.npy").astype(np.float32)])
 
     counts = df[df.label == 1].organism.value_counts()
-    species = [s for s in ORG if s in counts.index and counts[s] >= 75]
+    species = [s for s in ORG if s in counts.index and counts[s] >= 85]
     print("species:", [(ORG[s], int(counts[s])) for s in species])
 
     rows = []
@@ -77,9 +78,14 @@ def main() -> None:
                                    df.label.values[val_idx].astype(np.float32),
                                    epochs=30, lr=5e-4, patience=6)
 
+        train_clusters = set(df.iloc[fit_idx].cluster.unique())
         for tgt in species:
             te = src_test_idx if tgt == src else np.where((df.organism == tgt).values)[0]
-            if len(te) < 40 or df.label.values[te].sum() < 20:
+            # cluster-disjoint from training: a target protein homologous to a
+            # training protein would leak the answer
+            te = np.array([i for i in te if df.cluster.values[i] not in train_clusters])
+            min_len, min_pos = (20, 8) if tgt == src else (40, 20)
+            if len(te) < min_len or df.label.values[te].sum() < min_pos:
                 continue
             p_rf = rf.predict_proba(np.hstack([Xflat[te], Cctx[te]]))[:, 1]
             net.eval()
