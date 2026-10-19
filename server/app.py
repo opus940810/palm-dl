@@ -307,6 +307,10 @@ def main() -> None:
     ap.add_argument("--out", default="predictions.csv")
     ap.add_argument("--threshold", type=float, default=0.5)
     args = ap.parse_args()
+    if args.structure:
+        print("NOTE: the structure path is disabled in v2 (the hybrid model was trained on "
+              "the superseded labels); scoring uses the sequence ensemble.")
+        args.structure = False
     Handler.use_structure = args.structure
     Handler.allow_fetch = not args.no_fetch
     if args.batch:
