@@ -273,7 +273,9 @@ class Handler(BaseHTTPRequestHandler):
                 fasta = form.get("fasta", [""])[0]
                 threshold = float(form.get("threshold", ["0.5"])[0])
                 use_struct = bool(form.get("structure", [""])[0]) or self.use_structure
-            result = predict_fasta(fasta, threshold, use_struct, self.allow_fetch)
+            # the legacy structure path is retired: the hybrid artifact was trained on
+            # superseded labels, so requests can never re-enable it
+            result = predict_fasta(fasta, threshold, False, self.allow_fetch)
         except Exception as exc:  # noqa: BLE001
             self._send(400, f"error: {exc}")
             return

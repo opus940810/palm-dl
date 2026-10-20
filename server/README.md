@@ -59,6 +59,11 @@ work.
 
 ## Notes
 
+- The cross-validated model used within-fold **rank** averaging, while this service averages view
+  **logits** (needed for single-sequence scoring). On the same folds the logit average scores AUC
+  0.940 versus 0.944 for the rank average under the global combination, so service probabilities are
+  slightly less sharp than the cross-validated ensemble.
+
 - Structure helps where annotations already exist (forest AUC 0.890 → 0.910;
   hybrid full model 0.946 → 0.949, manuscript §2.12) but does not rescue the
   motif-atypical literature sites, so the default remains sequence-only.

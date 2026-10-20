@@ -30,13 +30,16 @@ LIGHT_DIRS = ("00_README_审阅说明.md", "01_manuscript", "02_supplementary",
               "03_figures", "04_data/processed", "04_data/DATA_DICTIONARY.md",
               "05_results/tables", "05_results/leakage_ladder.csv",
               "05_results/species_matrix_auc.csv", "05_results/headline_stats.json",
-              "05_results/stats_vs_published.json", "06_manifest")
+              "05_results/stats_vs_published.json", "05_results/scan/fdr_summary.csv",
+              "05_results/structure/paired_cv.csv", "06_manifest")
 
 README = """# PalmDL 审阅包 / Reviewer package
 
 **日期 / Date:** {today}
 **稿件 / Manuscript:** PalmDL: a leakage-aware deep learning framework and benchmark for protein S-palmitoylation site prediction
-**代码与数据 / Code and data:** https://github.com/opus940810/palm-dl ｜ DOI: 10.5281/zenodo.23455873
+**代码 / Code:** https://github.com/opus940810/palm-dl （v2，最新 commit）
+
+> 说明：Zenodo 上的 v1.0.0 存档是标签修正前的版本，修正版正在重新存档；本次审阅请以本包内容和 GitHub 上的 v2 为准。
 
 > 作者信息、单位与基金仍在填写中（稿中为 `[Author 1]` 等占位符），不影响审阅内容。
 
@@ -62,13 +65,13 @@ README = """# PalmDL 审阅包 / Reviewer package
 
 ## 核心数字（便于快速核对）/ Headline numbers
 
-- 聚类留出 5 折，全物种：AUC **0.944**（95% CI 0.940–0.948），MCC 0.611
-- 人类测试位点：AUC **0.914**（0.900–0.927），略高于已发表最佳 0.900（bootstrap P = 0.025）
-- 严格物种留出：AUC 0.885
+- 聚类留出 5 折，全物种（嵌套选型）：AUC **0.938**（簇 CI 0.917–0.954），MCC 0.590
+- 人类测试位点：AUC **0.910**（0.890–0.929）；与已发表 0.900 仅描述性并列
+- 严格物种留出：AUC 0.885（随机森林）
 - 泄漏审计：随机位点级划分 41.1% 测试正样本窗口出现在训练集（AUC 0.980）；聚类划分 0%（AUC 0.944）
 - 全蛋白组扫描（森林视角）：262,286 个 Cys，5% 档 301 个位点（53 个新位点），胞质富集 11.1 倍
-- 跨物种矩阵：哺乳动物间 AUC 0.90；植物→哺乳动物 0.77（细菌已移出）
-- 结构特征：配对 5 折 AUC 0.890 → 0.911
+- 跨物种矩阵：哺乳动物间 0.883–0.948（猪→人 0.834 例外）；植物→哺乳动物 0.739–0.781
+- 结构特征：配对 5 折 AUC 0.890 → 0.911（探索性）
 
 ## 数据来源 / Provenance
 

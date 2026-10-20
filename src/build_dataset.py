@@ -100,7 +100,16 @@ def window(seq: str, pos: int, half: int = HALF) -> str:
 
 
 def is_experimental(ev: str) -> bool:
-    return any(code.split("|")[0] == c for code in ev.split(",") for c in EXPERIMENTAL)
+    """True if *any* evidence clause is an experimental code.
+
+    UniProt joins clauses with "," or ";"; the first version split on ","
+    only, so strings such as "ECO:0000256|HAMAP-Rule:...; ECO:0000269|PubMed:..."
+    were classified as inferred because the leading inference code was tested
+    first. Six sites were affected; the declared Methods rule is "any
+    experimental code", so both separators are handled here.
+    """
+    codes = (c.strip().split("|")[0] for c in re.split(r"[;,]", str(ev)))
+    return any(c in EXPERIMENTAL for c in codes)
 
 
 def build() -> None:

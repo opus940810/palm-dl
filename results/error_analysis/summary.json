@@ -2,63 +2,71 @@
   "tier": {
     "experimental": {
       "n_pos": 455,
-      "auc": 0.9065251034252658,
-      "aupr": 0.17572968500213318
+      "auc": 0.9017851503386655,
+      "aupr": 0.17576307390432164
     },
     "inferred": {
       "n_pos": 3969,
-      "auc": 0.9468113907255307,
-      "aupr": 0.6822577486935097
+      "auc": 0.9405432200120617,
+      "aupr": 0.6638508645677699
     }
   },
   "fdr": [
     {
       "target_fdr": 0.01,
-      "threshold": 0.568149008969726,
+      "threshold": 0.585510727880903,
       "threshold_range": [
         0.5154540561220069,
         0.6248340508197654
       ],
       "n_folds": 5,
-      "test_precision": 0.9529914529914529,
-      "test_recall": 0.20162748643761302,
-      "n_predicted": 936
+      "val_fdp_mean": 0.004628026557276475,
+      "test_precision": 0.9529411764705882,
+      "test_recall": 0.2014014466546112,
+      "observed_test_fdp": 0.047058823529411764,
+      "n_predicted": 935
     },
     {
       "target_fdr": 0.05,
-      "threshold": 0.5301186309621406,
+      "threshold": 0.5499928425680819,
       "threshold_range": [
         0.4680712581420045,
-        0.5792990745147102
+        0.6076423898756488
       ],
       "n_folds": 5,
-      "test_precision": 0.9034931912374186,
-      "test_recall": 0.3449367088607595,
-      "n_predicted": 1689
+      "val_fdp_mean": 0.03921636256525606,
+      "test_precision": 0.8998771498771498,
+      "test_recall": 0.3311482820976492,
+      "observed_test_fdp": 0.10012285012285012,
+      "n_predicted": 1628
     },
     {
       "target_fdr": 0.1,
-      "threshold": 0.5077368889509579,
+      "threshold": 0.5205165009810465,
       "threshold_range": [
         0.4373260570555026,
-        0.5566181548143987
+        0.5610253729476106
       ],
       "n_folds": 5,
-      "test_precision": 0.8553639846743295,
-      "test_recall": 0.4037070524412297,
-      "n_predicted": 2088
+      "val_fdp_mean": 0.09615016214086618,
+      "test_precision": 0.8490110950313555,
+      "test_recall": 0.39783001808318263,
+      "observed_test_fdp": 0.15098890496864448,
+      "n_predicted": 2073
     },
     {
       "target_fdr": 0.2,
-      "threshold": 0.4569730257145121,
+      "threshold": 0.4732045952135014,
       "threshold_range": [
-        0.4033077736811368,
+        0.4046739112378998,
         0.5278817152132099
       ],
       "n_folds": 5,
-      "test_precision": 0.7655997413514387,
-      "test_recall": 0.5352622061482821,
-      "n_predicted": 3093
+      "val_fdp_mean": 0.1984148939682812,
+      "test_precision": 0.7591036414565826,
+      "test_recall": 0.49005424954792043,
+      "observed_test_fdp": 0.24089635854341737,
+      "n_predicted": 2856
     }
   ]
 }

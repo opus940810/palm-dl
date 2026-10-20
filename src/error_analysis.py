@@ -36,44 +36,53 @@ def tier_auc(df: pd.DataFrame, exp_mask: pd.Series) -> dict:
 
 
 def fdr_operating_point(va: pd.DataFrame, te: pd.DataFrame, target_fdr: float) -> dict:
-    """Per-fold threshold whose estimated FDR is <= target, evaluated on that fold's test rows.
+    """Per-fold operating point with complete score groups and observed test FDP.
 
-    The previous version pooled all validation rows and chose one global
-    threshold, which uses information from other folds; this version keeps the
-    threshold strictly inside each fold and then aggregates the test counts.
+    Ties are handled by accepting only whole score groups: a threshold that would
+    split a group is moved down to the next complete group, so the accepted
+    validation set is exactly the set that the threshold defines. Both the
+    nominal validation target and the observed held-out FDP are reported.
     """
     tp_all = fp_all = pos_all = 0
-    thrs, folds = [], []
+    thrs, folds, val_fdps, test_fdps = [], [], [], []
     for k in sorted(va.fold.unique()):
         v = va[va.fold == k]
         t = te[te.fold == k]
         if len(v) == 0 or len(t) == 0 or v.y.nunique() < 2:
             continue
-        order = np.argsort(-v.p.values)
+        order = np.argsort(-v.p.values, kind="mergesort")
         y = v.y.values[order]
         p = v.p.values[order]
-        tp = np.cumsum(y)
-        fp = np.cumsum(1 - y)
+        # boundaries of complete score groups
+        change = np.r_[np.nonzero(np.diff(p))[0], len(p) - 1]
+        tp = np.cumsum(y)[change]
+        fp = np.cumsum(1 - y)[change]
         fdr = fp / np.maximum(tp + fp, 1)
         ok = np.where(fdr <= target_fdr)[0]
         if len(ok) == 0:
             continue
         kk = ok.max()
-        thr = p[kk]
+        thr = p[change[kk]]
         pred = t.p.values >= thr
-        tp_all += int(((t.y == 1) & pred).sum())
-        fp_all += int(((t.y == 0) & pred).sum())
+        tp_t = int(((t.y == 1) & pred).sum())
+        fp_t = int(((t.y == 0) & pred).sum())
+        tp_all += tp_t
+        fp_all += fp_t
         pos_all += int((t.y == 1).sum())
         thrs.append(float(thr))
         folds.append(int(k))
+        val_fdps.append(float(fdr[kk]))
+        test_fdps.append(float(fp_t / max(tp_t + fp_t, 1)))
     if not thrs:
         return {}
     return {"target_fdr": target_fdr,
             "threshold": float(np.mean(thrs)),
             "threshold_range": [float(min(thrs)), float(max(thrs))],
             "n_folds": len(thrs),
+            "val_fdp_mean": float(np.mean(val_fdps)),
             "test_precision": tp_all / max(tp_all + fp_all, 1),
             "test_recall": tp_all / max(pos_all, 1),
+            "observed_test_fdp": fp_all / max(tp_all + fp_all, 1),
             "n_predicted": int(tp_all + fp_all)}
 
 

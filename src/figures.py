@@ -34,7 +34,7 @@ def fig1() -> None:
     ax[0].barh(range(len(head))[::-1], head.values, color=colors, height=0.75)
     ax[0].set_yticks(range(len(head))[::-1])
     ax[0].set_yticklabels(names)
-    ax[0].set_xlabel(f"S-palmitoyl sites\n(other {len(vc) - 10} species: {others:,})")
+    ax[0].set_xlabel(f"S-palmitoyl sites\n(remaining {len(vc) - 10} species: {others:,})")
     ax[0].set_xlim(0, head.max() * 1.18)
     ax[0].set_title("a  species", loc="left", fontweight="bold")
 
@@ -51,7 +51,7 @@ def fig1() -> None:
     order = [c for c in ["cytoplasmic", "unknown", "extracellular", "lumenal", "other", "signal_peptide"] if c in comp.index]
     ax[2].bar(range(len(order)), [comp[c] for c in order], color="#55a868", width=0.65)
     ax[2].set_xticks(range(len(order)))
-    ax[2].set_xticklabels([c.replace("_", " ") for c in order], rotation=35, ha="right")
+    ax[2].set_xticklabels(["other topology" if c == "other" else c.replace("_", " ") for c in order], rotation=35, ha="right")
     ax[2].set_ylabel("sites")
     ax[2].set_title("c  annotated topology", loc="left", fontweight="bold")
     fig.savefig(FIGURES / "fig1_dataset.png")

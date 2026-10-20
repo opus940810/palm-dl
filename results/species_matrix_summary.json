@@ -1,5 +1,7 @@
 {
-  "within_mean": 0.9249161577551194,
-  "between_mean": 0.8896418554476123,
-  "annotated": 35
+  "within_mean": 0.9006893037797051,
+  "between_mean": 0.8912588222923326,
+  "between_min": 0.7387531426709637,
+  "between_max": 0.9843366778149387,
+  "annotated": 32
 }
