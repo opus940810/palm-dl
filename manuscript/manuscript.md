@@ -6,7 +6,7 @@
 
 ¹ [Affiliation], [City], [Country]
 
-\* Correspondence: [email]
+Correspondence: [email]
 
 ---
 
@@ -93,7 +93,7 @@ Two consequences follow. First, claims of a single shared eukaryotic code are no
 
 **Table 5. Cross-species transfer matrix (AUC).**
 
-| train \ test | Human | Mouse | Rat | Cattle | *A. thaliana* | Pig |
+| train \ test | Human | Mouse | Rat | Cattle | A. thaliana | Pig |
 |---|---|---|---|---|---|---|
 | Human | 0.917 | 0.928 | 0.910 | 0.948 | 0.980 | — |
 | Mouse | 0.899 | 0.877 | 0.880 | 0.883 | 0.984 | — |

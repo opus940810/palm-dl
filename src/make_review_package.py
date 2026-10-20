@@ -151,7 +151,7 @@ DATA_DICT = """# 数据字典 / Data dictionary
 | `headline_stats.json` | bootstrap 置信区间与配对检验 |
 | `stats_vs_published.json` | 与 0.900 / 0.855 的 bootstrap 比较 |
 | `scan/fdr_summary.csv` | 全蛋白组 5 个 FDR 档位 |
-| `scan/shortlist_fdr5.csv` | 5% FDR 的 322 个高置信位点 |
+| `scan/shortlist_fdr5.csv` | 5% 档的 301 个候选位点 |
 | `scan/all_scores.csv` | 262,286 个 Cys 的打分（全量） |
 | `preds_cv_all.csv` | 全部位点的折外预测 |
 | `structure/hybrid_summary.json` | 结构感知模型的配对 CV 结果 |
