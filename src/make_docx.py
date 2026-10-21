@@ -21,9 +21,9 @@ FIGURES = [
     ("fig4_protocols.png", "Figure 4. Performance on human sites under three evaluation regimes."),
     ("fig5_calibration.png", "Figure 5. Calibration."),
     ("fig6_motif.png", "Figure 6. Sequence motif learned from the data."),
-    ("fig7_species_matrix.png", "Figure 7. The palmitoylation code is eukaryotic."),
+    ("fig7_species_matrix.png", "Figure 7. Cross-species transfer is heterogeneous."),
     ("fig8_interpretation.png", "Figure 8. What the model uses and how far its predictions can be trusted."),
-    ("fig9_proteome_scan.png", "Figure 9. Proteome-wide scan and FDR-controlled shortlist."),
+    ("fig9_proteome_scan.png", "Figure 9. Proteome-wide scan and candidate shortlist with empirical q-values."),
 ]
 
 

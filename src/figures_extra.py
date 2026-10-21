@@ -76,7 +76,7 @@ def fig8_interpretation() -> None:
                            textcoords="offset points", xytext=(-9, 5), fontsize=5.5)
         ax[1].set_xlabel("recall of known sites")
         ax[1].set_ylabel("precision")
-        ax[1].set_title("b  FDR-controlled operating points", loc="left", fontweight="bold")
+        ax[1].set_title("b  empirical validation-target operating points", loc="left", fontweight="bold")
         ax[1].set_xlim(0.15, 0.60)
         ax[1].set_ylim(0.6, 1.02)
     fig.savefig(FIGURES / "fig8_interpretation.png")

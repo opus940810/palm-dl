@@ -159,7 +159,7 @@ Four caveats bound the resource. First, the proteome-wide prior is small (557 an
 
 **Table 8. Proteome-wide scan of the reviewed human proteome (262,286 cysteines) at five empirical candidate tiers.**
 
-| FDR | sites | proteins | known recovered | recall of known | novel | score threshold |
+| empirical tier | sites | proteins | known recovered | recall of known | novel | score threshold |
 |---|---|---|---|---|---|---|
 | 1% | 215 | 134 | 197 | 35.4% | 18 | 0.979 |
 | 5% | 301 | 199 | 248 | 44.5% | 53 | 0.959 |
