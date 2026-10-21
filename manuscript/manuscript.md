@@ -273,7 +273,7 @@ The pipeline is organised as 25 scripts in `src/` (pipeline table in the reposit
 
 ## Data and code availability
 
-The corrected v2 code, processed data (including the canonical fold assignments), out-of-fold predictions and proteome-wide scores are available at https://github.com/opus940810/palm-dl (release tag v2.1; the exact commit, file hashes and reproduction commands are listed in docs/REPRODUCE.md). The earlier v1.0.0 release is archived at Zenodo (DOI 10.5281/zenodo.23455873); it predates the label correction and must not be used for the results reported here, and a corrected Zenodo version will be deposited before publication. The prediction service is available at [SERVICE-URL]. Supplementary Tables S1–S7 accompany the manuscript. Raw data are from UniProt release 2026_03 and are freely available under CC BY 4.0; AlphaFold models are from the AlphaFold DB (CC BY 4.0).
+The corrected v2.1 code, processed data (including the canonical fold assignments), out-of-fold predictions and proteome-wide scores are archived at Zenodo under the concept DOI 10.5281/zenodo.23455872 (version 2.1.0: 10.5281/zenodo.23537476) and available at GitHub tag v2.1 (https://github.com/opus940810/palm-dl; exact commit, file hashes and reproduction commands in docs/REPRODUCE.md). The superseded v1.0.0 release (DOI 10.5281/zenodo.23455873) predates the label correction and must not be used for the results reported here. The prediction service is available at [SERVICE-URL]. Supplementary Tables S1-S7 accompany the manuscript.
 
 ## Competing interests
 

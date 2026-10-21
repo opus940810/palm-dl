@@ -1,6 +1,6 @@
 # PalmDL
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23455873.svg)](https://doi.org/10.5281/zenodo.23455873)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23455872.svg)](https://doi.org/10.5281/zenodo.23455872)
 [![License: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 [![License: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey.svg)](LICENSE-DATA)
 
@@ -42,9 +42,10 @@ The service needs model artifacts in `models/` (not versioned). Regenerate them 
 
 ## Data and archive
 
-The corrected v2.1 code and processed data live in this repository (tag v2.1). The
-earlier v1.0.0 Zenodo record predates the label correction and must not be used for the
-current results; a corrected Zenodo version accompanies the manuscript.
+The corrected v2.1 code and processed data live in this repository (tag v2.1) and are
+archived at Zenodo under the concept DOI 10.5281/zenodo.23455872 (version 2.1.0: 10.5281/zenodo.23537476). The earlier
+v1.0.0 record (10.5281/zenodo.23455873) predates the label correction and must not be used
+for the current results.
 
 ## Citation
 
