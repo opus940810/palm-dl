@@ -20,7 +20,7 @@ STAGE = REL / f"palmdl-{VERSION}"
 
 INCLUDE = [
     "src", "server", "figures", "manuscript", "deploy", "docs",
-    "data/processed", "data/raw/download_meta.json",
+    "data/processed", "data/raw", "results/literature/review_sheet.tsv",
     "results/tables", "results/error_analysis", "results/literature/curated_sites.csv",
     "results/literature/filter_table.csv", "results/literature/metrics.json",
     "results/literature/recognition_metrics.json", "results/literature/literature_sites.csv",

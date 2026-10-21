@@ -82,7 +82,7 @@ python src/lit_extract.py
 python src/lit_eval.py
 
 # proteome-wide scan (about one hour of CPU)
-python src/scan_score.py
+python src/scan_score.py --view rf   # forest view used in the paper
 python src/scan_decoys.py
 python src/scan_analyze.py
 python src/fig_scan.py
@@ -100,8 +100,16 @@ python src/make_supplement.py
 python src/make_docx.py
 ```
 
+## ESM-2 checkpoint
+
+The language-model view needs the official fair-esm weights. Download once with
+`python -c "import esm; esm.pretrained.esm2_t12_35M_UR50D()"` and place the checkpoint at
+`palm-dl/.cache/esm2_t12_35M_UR50D.pt` (the path `src/esm_embed.py` expects). No other
+model weights are required; `src/af_features.py` downloads AlphaFold models on demand.
+
 ## Release identity (v2.1)
 
+Archived at Zenodo under the concept DOI **10.5281/zenodo.23455872** (version 2.1.0: 10.5281/zenodo.23537478).
 The repository tag is **v2.1**; `git rev-parse v2.1` returns the exact commit used for
 this manuscript. The archive uploaded to Zenodo must be built from that tag. Hashes of
 the inputs and outputs quoted in the manuscript:

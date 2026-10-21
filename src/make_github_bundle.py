@@ -112,7 +112,9 @@ The service needs model artifacts in `models/` (not versioned). Regenerate them 
 
 ## Data and archive
 
-The corrected v2.1 code and processed data live in this repository (tag v2.1) and are
+The exact UniProt 2026_03 snapshot used for the paper is included under `data/raw/`; re-running
+`src/download_data.py` refreshes it from the live API, whose release may differ. The corrected
+v2.1 code and processed data live in this repository (tag v2.1) and are
 archived at Zenodo under the concept DOI 10.5281/zenodo.23455872 (version 2.1.0: 10.5281/zenodo.23537476). The earlier
 v1.0.0 record (10.5281/zenodo.23455873) predates the label correction and must not be used
 for the current results.
@@ -159,8 +161,8 @@ message: If you use PalmDL, please cite the paper and the archived release.
 title: "PalmDL: a leakage-aware deep learning framework and benchmark for protein S-palmitoylation site prediction"
 version: 1.0.0
 authors:
-  - family-names: "[to be completed]"
-    given-names: "[to be completed]"
+  - family-names: "Ruan"
+    given-names: "Yun"
 license: MIT
 repository-code: "https://github.com/[ORG]/palm-dl"
 identifiers:
@@ -186,11 +188,12 @@ ZENODO = {
                     "leakage-controlled benchmark, an ESM-2 + random-forest ensemble, a "
                     "structure-aware variant, a proteome-wide FDR-controlled shortlist and a "
                     "prediction service."),
-    "creators": [{"name": "[Family name], [Given name]", "affiliation": "[Affiliation]"}],
+    "creators": [{"name": "Ruan, Yun", "affiliation": "[Affiliation]"}],
     "license": "MIT",
     "keywords": ["S-palmitoylation", "post-translational modification", "deep learning",
                  "benchmark leakage"],
     "access_right": "open",
+    "related_identifiers": [{"relation": "isSupplementTo", "identifier": "https://github.com/opus940810/palm-dl/tree/v2.1", "scheme": "url"}],
 }
 
 

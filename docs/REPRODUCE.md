@@ -52,7 +52,7 @@ python src/lit_extract.py
 python src/lit_eval.py
 
 # proteome-wide scan (about one hour of CPU)
-python src/scan_score.py
+python src/scan_score.py --view rf   # forest view used in the paper
 python src/scan_decoys.py
 python src/scan_analyze.py
 python src/fig_scan.py
@@ -70,8 +70,16 @@ python src/make_supplement.py
 python src/make_docx.py
 ```
 
+## ESM-2 checkpoint
+
+The language-model view needs the official fair-esm weights. Download once with
+`python -c "import esm; esm.pretrained.esm2_t12_35M_UR50D()"` and place the checkpoint at
+`palm-dl/.cache/esm2_t12_35M_UR50D.pt` (the path `src/esm_embed.py` expects). No other
+model weights are required; `src/af_features.py` downloads AlphaFold models on demand.
+
 ## Release identity (v2.1)
 
+Archived at Zenodo under the concept DOI **10.5281/zenodo.23455872** (version 2.1.0: 10.5281/zenodo.23537478).
 The repository tag is **v2.1**; `git rev-parse v2.1` returns the exact commit used for
 this manuscript. The archive uploaded to Zenodo must be built from that tag. Hashes of
 the inputs and outputs quoted in the manuscript:
@@ -83,8 +91,8 @@ the inputs and outputs quoted in the manuscript:
 - `results/species_matrix_auc.csv`  sha256 `f6d42da876c600fe66fcd8a2d192a7c3c5cda2b252cf106a0e1bf64a5e1735b1`
 - `results/error_analysis/table6_nested.csv`  sha256 `937ba7f911c38cab414fc8d27cbcaa2f23bd5f6cd860eb86e084138af21936ba`
 - `results/error_analysis/ece_nested.json`  sha256 `79b93bcf7139b1ce06d7d0f2eefbf9e4fe447f305a90eceba9b14534c8a57e93`
-- `manuscript/PalmDL_manuscript.docx`  sha256 `fc319e25e51bff23f2394dbd09ed6b85921e92c2bc13e1a1541f8386989f081d`
-- `manuscript/manuscript.md`  sha256 `3b775fc8d28427a3ebcf159cbfede7aee5d5ce971f0b1f4815052fab0272f81f`
+- `manuscript/PalmDL_manuscript.docx`  sha256 `e30eb5b11e02cc71f44053eb1af07462168d14ce58f54e66865228cbee8b8ef1`
+- `manuscript/manuscript.md`  sha256 `526c70f3da8a4d39a273ef4035d26808891588a8b3e5a1cf7c6dd699c56b7ba5`
 
 ## Notes
 

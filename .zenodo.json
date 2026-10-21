@@ -4,7 +4,7 @@
   "description": "Code, processed data, fold assignments and results for PalmDL: a leakage-controlled benchmark, an ESM-2 + random-forest ensemble, a structure-aware variant, a proteome-wide FDR-controlled shortlist and a prediction service.",
   "creators": [
     {
-      "name": "[Family name], [Given name]",
+      "name": "Ruan, Yun",
       "affiliation": "[Affiliation]"
     }
   ],
@@ -17,6 +17,11 @@
   ],
   "access_right": "open",
   "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://github.com/opus940810/palm-dl/tree/v2.1",
+      "scheme": "url"
+    },
     {
       "relation": "isIdenticalTo",
       "identifier": "https://github.com/opus940810/palm-dl",

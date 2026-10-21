@@ -56,7 +56,7 @@ def build_targets() -> pd.DataFrame:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--max-chunks", type=int, default=0)
-    ap.add_argument("--view", default="esm", choices=["esm", "rf"],
+    ap.add_argument("--view", default="rf", choices=["esm", "rf"],
                     help="esm = released ensemble using precomputed embeddings; rf = forest only")
     args = ap.parse_args()
 
