@@ -40,7 +40,6 @@ from final_model import embed_windows, load, logit  # noqa: E402
 
 AF_DIR = RESULTS / "structure" / "af"
 STRUCT_FEATS = ["plddt_site", "plddt_window", "packing"]
-STRICT_THRESHOLD = 0.957  # 5% FDR at proteome scale (manuscript Table 8)
 
 SEQ = {}
 STRUCT = {}
@@ -213,8 +212,7 @@ def render(result: dict) -> str:
         for s in rec["sites"]:
             if not s["passes_threshold"]:
                 continue
-            cls = ' class="hi"' if s["probability"] >= STRICT_THRESHOLD else ""
-            rows.append(f"<tr{cls}><td>{rec['protein']}</td><td>C{s['position']}</td>"
+            rows.append(f"<tr><td>{rec['protein']}</td><td>C{s['position']}</td>"
                         f"<td>{s['probability']:.3f}</td><td><code>{s['context']}</code></td>"
                         f"<td>{rec['path']}</td></tr>")
     body = "".join(rows) or "<tr><td colspan=5>No cysteine passed the threshold.</td></tr>"

@@ -61,10 +61,12 @@ work.
 
 ## Notes
 
-- The cross-validated model used within-fold **rank** averaging, while this service averages view
-  **logits** (needed for single-sequence scoring). On the same folds the logit average scores AUC
-  0.940 versus 0.944 for the rank average under the global combination, so service probabilities are
-  slightly less sharp than the cross-validated ensemble.
+- The nested benchmark chooses members per fold and averages within-fold **ranks**; this service
+  fixes RF+ESM and averages **logits**. For the fixed two-view combination the logit average scored
+  AUC 0.940 versus 0.944 for the rank average in a sensitivity check; this does not establish that
+  the deployed probabilities are calibrated like the benchmark.
+- The structure path is retired and the interface no longer exposes it; the AlphaFold analysis is
+  an annotated-human paired experiment reported in the manuscript, not a deployed feature.
 
 - Structure helps where annotations already exist (forest AUC 0.890 → 0.910;
   hybrid full model 0.946 → 0.949, manuscript §2.12) but does not rescue the
