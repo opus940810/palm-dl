@@ -75,52 +75,50 @@ README = """# PalmDL
 [![License: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey.svg)](LICENSE-DATA)
 
 PalmDL predicts S-palmitoylation sites from protein sequence and ships a
-leakage-controlled benchmark. It combines frozen ESM-2 embeddings with a
+leakage-controlled, auditable benchmark. It combines frozen ESM-2 embeddings with a
 motif/physicochemical random forest, and provides:
 
 - **cluster-held-out and species-held-out folds** (the canonical benchmark),
-- a **proteome-wide, FDR-controlled candidate list** for the human proteome,
-- a **cross-species transfer matrix** (eukaryotic code shared; bacterial lipidation distinct),
-- a **structure-aware variant** using AlphaFold pLDDT/packing (graceful fallback),
-- a **prediction service** (HTTP + batch, standard library only).
+- a **nested ensemble** whose members are chosen inside each outer fold,
+- a **proteome-wide candidate list** scored with the forest view and empirical q-values,
+- a **six-species transfer matrix** (heterogeneous transfer; bacterial N-palmitoyl sites excluded),
+- a **sequence-only prediction service** (HTTP + batch, standard library only).
 
-Headline numbers: cluster-held-out AUC **0.944** (95% CI 0.940–0.948); human test
-sites AUC **0.914** (0.900–0.927), marginally above the best published human value
-0.900 (bootstrap P = 0.025); strict species holdout AUC 0.885.
+Headline numbers: nested cluster-held-out AUC **0.938** (cluster-bootstrap 95% CI
+0.917-0.954), MCC 0.590; human test sites AUC **0.910** (0.890-0.929); strict species
+holdout AUC 0.885. Published human AUC 0.900 is context, not a paired comparison.
 
 ## Quick start
 
 ```bash
 pip install -r requirements.txt
-python server/app.py --batch server/example.fa --out example.csv --threshold 0.5
+python server/app.py --batch server/example.fa --out example.csv --threshold 0.36
 python server/app.py            # http://127.0.0.1:8765
 ```
 
-The service needs model artifacts in `models/` (not versioned). Regenerate them
-with `python src/final_model.py` (about 3 min) and, for the structure path,
-`python src/structure_hybrid.py` (about 10 min).
+The service needs model artifacts in `models/` (not versioned). Regenerate them with
+`python src/final_model.py` (about 3 min).
 
 ## Repository map
 
 | Path | Contents |
 |---|---|
-| `src/` | 25 pipeline scripts (data, splits, models, scan, literature, structure) |
+| `src/` | pipeline scripts (data, splits, nested ensembles, scan, literature, structure) |
 | `data/processed/` | labelled sites and **the canonical fold assignments** |
 | `results/` | summary tables, per-fold metrics, shortlists, statistics |
 | `figures/`, `manuscript/` | main text and supplementary material |
-| `server/`, `deploy/` | prediction service and hosting recipes |
-| `docs/REPRODUCE.md` | ordered commands reproducing every number |
+| `server/`, `deploy/` | sequence-only prediction service and hosting recipes |
+| `docs/REPRODUCE.md` | ordered commands, tag v2.1 and file hashes |
 
 ## Data and archive
 
-The exact UniProt 2026_03 snapshot, out-of-fold predictions, the proteome-wide
-score table and the release archive are in the Zenodo record (DOI [ZENODO-DOI])
-to keep this repository light. Raw data are CC BY 4.0 (UniProt), AlphaFold models
-CC BY 4.0.
+The corrected v2.1 code and processed data live in this repository (tag v2.1). The
+earlier v1.0.0 Zenodo record predates the label correction and must not be used for the
+current results; a corrected Zenodo version accompanies the manuscript.
 
 ## Citation
 
-See `CITATION.cff`; please cite the paper and the Zenodo DOI.
+See `CITATION.cff`; please cite the paper and the archived release.
 
 ## Licence
 
