@@ -3,7 +3,7 @@
 The cross-validated ensemble in the paper averages within-fold ranks.  A released
 model cannot rank against a fold, so the deployable version averages logits of
 the two calibrated views and then applies Platt scaling; on the same folds this
-changes AUC by <0.003 (see results/headline_stats.json).
+changes AUC by about 0.004 in a fixed two-view sensitivity check (see results/headline_stats.json).
 """
 from __future__ import annotations
 

@@ -166,7 +166,7 @@ Four caveats bound the resource. First, the proteome-wide prior is small (557 an
 | 20% | 615 | 416 | 334 | 60.0% | 281 | 0.894 |
 | 30% | 1,010 | 701 | 380 | 68.2% | 630 | 0.830 |
 
-"Known" refers to the 557 S-palmitoyl cysteine sites annotated in UniProt 2026_03 for human proteins; "novel" sites are unannotated cysteines. Empirical q-values are estimated by target–decoy comparison against 20,000 shuffled-flank decoys scored with the forest view; the decoy tail is thin, so these tiers are candidate rankings rather than proven error rates. Known-site recovery uses the 557 annotated human sites as its denominator.
+The extracellular stratum pools rows from all five folds even though only three folds contain positives of both classes, so its AUC is a pooled estimate with an unbalanced fold composition. "Known" refers to the 557 S-palmitoyl cysteine sites annotated in UniProt 2026_03 for human proteins; "novel" sites are unannotated cysteines. Empirical q-values are estimated by target–decoy comparison against 20,000 shuffled-flank decoys scored with the forest view; the decoy tail is thin, so these tiers are candidate rankings rather than proven error rates. Known-site recovery uses the 557 annotated human sites as its denominator.
 
 ### 2.12 A paired structural analysis on annotated human sites
 

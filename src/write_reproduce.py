@@ -76,16 +76,18 @@ cp results/species_matrix_v2_auc.csv results/species_matrix_auc.csv
 python src/figures_extra.py      # after error_analysis: Figure 8 uses its outputs
 python src/figures.py
 
+# literature mining first: scan_analyze reads literature_sites.csv (network; ~1,000 texts)
+python src/lit_mining.py --limit 1200
+python src/lit_extract.py
+python src/lit_eval.py
+
 # proteome-wide scan (about one hour of CPU)
 python src/scan_score.py
 python src/scan_decoys.py
-python src/scan_analyze.py       # reads literature_sites.csv, so run lit_eval first
+python src/scan_analyze.py
 python src/fig_scan.py
 
-# literature mining (network; ~1,000 open-access full texts)
-python src/lit_mining.py --limit 1200
-python src/lit_extract.py
-python src/lit_eval.py           # must precede scan_analyze
+# literature analyses that consume the scan output
 python src/lit_recognition.py
 python src/curate_literature.py  # reads all_scores and shortlists
 

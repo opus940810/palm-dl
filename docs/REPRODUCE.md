@@ -46,16 +46,18 @@ cp results/species_matrix_v2_auc.csv results/species_matrix_auc.csv
 python src/figures_extra.py      # after error_analysis: Figure 8 uses its outputs
 python src/figures.py
 
+# literature mining first: scan_analyze reads literature_sites.csv (network; ~1,000 texts)
+python src/lit_mining.py --limit 1200
+python src/lit_extract.py
+python src/lit_eval.py
+
 # proteome-wide scan (about one hour of CPU)
 python src/scan_score.py
 python src/scan_decoys.py
-python src/scan_analyze.py       # reads literature_sites.csv, so run lit_eval first
+python src/scan_analyze.py
 python src/fig_scan.py
 
-# literature mining (network; ~1,000 open-access full texts)
-python src/lit_mining.py --limit 1200
-python src/lit_extract.py
-python src/lit_eval.py           # must precede scan_analyze
+# literature analyses that consume the scan output
 python src/lit_recognition.py
 python src/curate_literature.py  # reads all_scores and shortlists
 
@@ -81,8 +83,8 @@ the inputs and outputs quoted in the manuscript:
 - `results/species_matrix_auc.csv`  sha256 `f6d42da876c600fe66fcd8a2d192a7c3c5cda2b252cf106a0e1bf64a5e1735b1`
 - `results/error_analysis/table6_nested.csv`  sha256 `937ba7f911c38cab414fc8d27cbcaa2f23bd5f6cd860eb86e084138af21936ba`
 - `results/error_analysis/ece_nested.json`  sha256 `79b93bcf7139b1ce06d7d0f2eefbf9e4fe447f305a90eceba9b14534c8a57e93`
-- `manuscript/PalmDL_manuscript.docx`  sha256 `734365fb9755ebc07cca5883393b9d6015507b5dc295994b7cb3d7dac4b984bf`
-- `manuscript/manuscript.md`  sha256 `485559d8d6c43ce44f7ccc49a118a8403e3a72f72636588b2f2c7b4edc758205`
+- `manuscript/PalmDL_manuscript.docx`  sha256 `1c90cfa2b4a9889c6480d8fd5698cc21683b43b7570b45872039d684323a3fa7`
+- `manuscript/manuscript.md`  sha256 `e801002c87eefe606e7788c433d7052d321cb28c30d78ba7b1fe02ac0d38b599`
 
 ## Notes
 
