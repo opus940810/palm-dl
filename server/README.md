@@ -52,10 +52,12 @@ work.
 
 ## Choosing a threshold
 
-- `0.36` — natural-prevalence operating point of the released model.
+- `0.36` — natural-prevalence operating point of the deployed logit-average model.
 - `0.5` — conservative default for ranking.
-- The proteome-scan tiers in the manuscript (Table 8) are on the **forest-view** scale and are
-  not comparable with service probabilities; use them only to rank candidates inside that table.
+- The nested cross-validation benchmark and the deployed model are different algorithms: the
+  benchmark selects members per fold and averages within-fold ranks, whereas the service fixes
+  RF+ESM and averages logits. Proteome-scan tiers are on a forest-only scale and are not
+  comparable with service probabilities.
 
 ## Notes
 

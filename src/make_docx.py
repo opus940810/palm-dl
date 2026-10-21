@@ -51,6 +51,9 @@ def add_table(doc: Document, header: list[str], rows: list[list[str]]) -> None:
     t = doc.add_table(rows=1, cols=len(header))
     t.style = "Table Grid"
     t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    from docx.oxml.ns import qn
+    trPr = t.rows[0]._tr.get_or_add_trPr()
+    trPr.append(trPr.makeelement(qn("w:tblHeader"), {qn("w:val"): "true"}))
     for i, h in enumerate(header):
         cell = t.rows[0].cells[i]
         cell.text = ""

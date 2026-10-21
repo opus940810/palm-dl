@@ -1,23 +1,19 @@
 """PalmDL prediction service (standard library only, no web framework).
 
-Modes
-  sequence (default)  RF + ESM ensemble, available for any FASTA input.
-  structure           if an AlphaFold model exists for the record name
-                      (a UniProt accession), the hybrid structure-aware RF is
-                      used for modelled cysteines and the sequence path is used
-                      for the rest.  Models are taken from a local cache and,
-                      with --fetch, downloaded on demand.
+Scoring uses the fixed RF+ESM logit-average model with a Platt calibration. This is
+not the nested cross-validation benchmark: the benchmark chooses ensemble members
+per fold and averages within-fold ranks, whereas the service fixes RF+ESM and
+averages logits. The legacy structure-aware path is retired; requests cannot
+enable it.
 
 Run:
     python app.py                          # http://127.0.0.1:8765
-    python app.py --structure              # enable the structure path
-    python app.py --structure --no-fetch   # cache only, never download
-    python app.py --batch in.fa --out sites.csv [--structure]
+    python app.py --batch in.fa --out sites.csv
 
 Endpoints:
     GET  /            HTML form
-    POST /predict     form or JSON {"fasta": "...", "threshold": 0.5, "structure": true}
-    GET  /health      model metadata and structure availability
+    POST /predict     form or JSON {"fasta": "...", "threshold": 0.5}
+    GET  /health      model metadata
 """
 from __future__ import annotations
 
@@ -199,15 +195,14 @@ th,td{border-bottom:1px solid #ddd;padding:6px 8px;font-size:13px;text-align:lef
 code{background:#f3f3f3;padding:1px 4px;border-radius:3px} .hi{color:#b22222;font-weight:600}
 </style></head><body>
 <h1>PalmDL — protein S-palmitoylation site prediction</h1>
-<p class="hint">Paste one or more protein sequences in FASTA format. Every cysteine is scored;
-the table is ranked by probability. Model: ESM-2 embedding view + motif/physicochemical
-random forest, Platt-calibrated. Default threshold is the natural-prevalence operating point;
-use 0.957 for the proteome-wide 5% FDR tier. If the record name is a UniProt accession and a
-structure is available, the structure-aware path is used for modelled cysteines.</p>
+<p class="hint">Paste one or more protein sequences in FASTA format. Every cysteine is scored and
+the table is ranked by probability. The service uses the fixed RF+ESM logit-average model with a
+Platt calibration; it is not the nested cross-validation benchmark. The natural-prevalence
+operating point is 0.36; higher thresholds are more conservative. Proteome-scan tiers in the
+manuscript are on a different (forest-only) scale and are not comparable with these probabilities.</p>
 <form method="post" action="/predict">
 <textarea name="fasta" placeholder=">P25101 endothelin receptor A\nMN..."></textarea><br><br>
 <label>threshold <input type="number" name="threshold" step="0.01" value="0.5"></label>
-&nbsp;<label><input type="checkbox" name="structure" value="1"> use AlphaFold structure if available</label>
 &nbsp;<button type="submit">Predict</button>
 </form></body></html>"""
 

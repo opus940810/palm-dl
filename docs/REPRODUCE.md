@@ -19,9 +19,10 @@ python src/run_cv.py --models esm --tag cv_esm
 python src/run_cv.py --models cnn --subset human --tag cvh_cnn
 python src/run_cv.py --models esm --subset human --tag cvh_esm
 
-# ensembles, tables, statistics, figures
-python src/ensemble.py --members rf,esm --out cv_ensemble
-python src/ensemble.py --members rf,esm --out cvh_ensemble
+# nested ensemble selection (one combination per outer fold)
+python src/run_cv.py --models pwm,lr,rf --subset human --tag cvh_base
+python src/ensemble_nested.py --prefix cv --out cv_ensemble
+python src/ensemble_nested.py --prefix cvh --out cvh_ensemble
 python src/merge_preds.py
 python src/analysis.py
 python src/stats_headline.py
@@ -29,13 +30,16 @@ python src/stats_vs_published.py
 python src/leakage_ladder.py
 python src/figures.py
 
-# cross-species matrix
-python src/species_matrix.py
-python src/diag_fix.py           # honest diagonal (cluster holdout)
+# cross-species matrix (v2: frozen targets, fit/val cluster exclusion)
+python src/species_matrix_v2.py
+cp results/species_matrix_v2_auc.csv results/species_matrix_auc.csv
 python src/figures_extra.py
 
 # error structure, FDR operating points, mutagenesis
-python src/error_analysis.py
+python src/final_model.py
+python src/fit_rf_calibrator.py
+python src/error_analysis.py      # Figure 8 depends on this
+python src/tier_table_nested.py
 
 # proteome-wide scan (about one hour of CPU)
 python src/scan_score.py
