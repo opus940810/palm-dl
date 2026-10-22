@@ -94,8 +94,8 @@ the inputs and outputs quoted in the manuscript:
 - `results/species_matrix_auc.csv`  sha256 `f6d42da876c600fe66fcd8a2d192a7c3c5cda2b252cf106a0e1bf64a5e1735b1`
 - `results/error_analysis/table6_nested.csv`  sha256 `937ba7f911c38cab414fc8d27cbcaa2f23bd5f6cd860eb86e084138af21936ba`
 - `results/error_analysis/ece_nested.json`  sha256 `79b93bcf7139b1ce06d7d0f2eefbf9e4fe447f305a90eceba9b14534c8a57e93`
-- `manuscript/PalmDL_manuscript.docx`  sha256 `e30eb5b11e02cc71f44053eb1af07462168d14ce58f54e66865228cbee8b8ef1`
-- `manuscript/manuscript.md`  sha256 `526c70f3da8a4d39a273ef4035d26808891588a8b3e5a1cf7c6dd699c56b7ba5`
+- `manuscript/PalmDL_manuscript.docx`  sha256 `3c56863d826f87818c71018a51ce83506c3f97e70eb86c6532b4a494ba60482e`
+- `manuscript/manuscript.md`  sha256 `dfb67390a29ac23adab2c899684b25bacbf94a8af5d8cd2223954e0f34b5ee03`
 
 ## Notes
 

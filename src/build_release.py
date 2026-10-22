@@ -15,7 +15,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REL = ROOT / "release"
-VERSION = "v2.1.1"
+VERSION = "v2.1.2"
 STAGE = REL / f"palmdl-{VERSION}"
 
 INCLUDE = [
