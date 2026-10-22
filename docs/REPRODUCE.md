@@ -75,10 +75,16 @@ python src/make_docx.py
 ## ESM-2 checkpoint
 
 The language-model view needs the official fair-esm weights. Download once with
-`python -c "import esm; esm.pretrained.esm2_t12_35M_UR50D()"` and place the checkpoint at
-`<workspace>/.cache/esm2_t12_35M_UR50D.pt`, i.e. a `.cache` directory next to the `palm-dl/`
-checkout (the path both `src/esm_embed.py` and `src/scan_embed.py` expect). No other
-model weights are required; `src/af_features.py` downloads AlphaFold models on demand.
+`python -c "import esm; esm.pretrained.esm2_t12_35M_UR50D()"`, then copy **both** files from
+`torch.hub.get_dir()/checkpoints` into a `.cache` directory next to the `palm-dl/` checkout:
+
+- `<workspace>/.cache/esm2_t12_35M_UR50D.pt`
+- `<workspace>/.cache/esm2_t12_35M_UR50D-contact-regression.pt`
+
+The fair-esm local loader reads the companion contact-regression file at load time even though
+the downstream models do not predict contacts, so the two files must stay in the same directory.
+`src/esm_embed.py` and `src/scan_embed.py` both expect this path; `src/af_features.py` downloads
+AlphaFold models on demand.
 
 ## Release identity (v2.1)
 
@@ -94,8 +100,8 @@ the inputs and outputs quoted in the manuscript:
 - `results/species_matrix_auc.csv`  sha256 `f6d42da876c600fe66fcd8a2d192a7c3c5cda2b252cf106a0e1bf64a5e1735b1`
 - `results/error_analysis/table6_nested.csv`  sha256 `937ba7f911c38cab414fc8d27cbcaa2f23bd5f6cd860eb86e084138af21936ba`
 - `results/error_analysis/ece_nested.json`  sha256 `79b93bcf7139b1ce06d7d0f2eefbf9e4fe447f305a90eceba9b14534c8a57e93`
-- `manuscript/PalmDL_manuscript.docx`  sha256 `3c56863d826f87818c71018a51ce83506c3f97e70eb86c6532b4a494ba60482e`
-- `manuscript/manuscript.md`  sha256 `dfb67390a29ac23adab2c899684b25bacbf94a8af5d8cd2223954e0f34b5ee03`
+- `manuscript/PalmDL_manuscript.docx`  sha256 `cdadac4f350eab37b091e8d7d451b3e8dc4e882da3da05fb5037f2e0ce2326d3`
+- `manuscript/manuscript.md`  sha256 `60e5f8c170a9a6aac565983c20f5ec1f3563fd0b2646eaa26d0dc3b942513235`
 
 ## Notes
 

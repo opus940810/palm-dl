@@ -37,9 +37,9 @@ README = """# PalmDL 审阅包 / Reviewer package
 
 **日期 / Date:** {today}
 **稿件 / Manuscript:** PalmDL: a leakage-aware deep learning framework and benchmark for protein S-palmitoylation site prediction
-**代码 / Code:** https://github.com/opus940810/palm-dl （v2，最新 commit）
+**代码与归档 / Code and archive:** https://github.com/opus940810/palm-dl （tag v2.1）｜ Zenodo concept DOI: 10.5281/zenodo.23455872（最新版 2.1.2）
 
-> 说明：Zenodo 上的 v1.0.0 存档是标签修正前的版本，修正版正在重新存档；本次审阅请以本包内容和 GitHub 上的 v2 为准。
+> 归档与代码通过 concept DOI 固定；本次审阅以本包内容、GitHub tag v2.1 与 Zenodo 最新版 2.1.2 为准。
 
 > 作者信息、单位与基金仍在填写中（稿中为 `[Author 1]` 等占位符），不影响审阅内容。
 
@@ -161,7 +161,9 @@ DATA_DICT = """# 数据字典 / Data dictionary
 
 ```bash
 pip install -r requirements.txt
-python src/download_data.py && python src/build_dataset.py && python src/splits.py
+# optional live refresh (skip to use the bundled snapshot)
+# python src/download_data.py
+python src/build_dataset.py && python src/splits.py
 # 其余步骤见 docs/REPRODUCE.md
 ```
 """
@@ -288,7 +290,11 @@ def finalize() -> None:
     print(f"full package: {full.name} ({size:.1f} MB, {len(rows)} files)")
 
     light = REL / f"PalmDL_review_LIGHT_{date.today().isoformat()}.zip"
+    note = ("This LIGHT package omits large items that are present in the FULL package "
+            "(raw UniProt TSVs, out-of-fold predictions, proteome-wide scores). "
+            "06_manifest/MANIFEST.csv covers the FULL package; verify omitted files against FULL.")
     with zipfile.ZipFile(light, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as z:
+        z.writestr(f"{STAGE.name}/06_manifest/LIGHT_README.txt", note)
         for p in sorted(STAGE.rglob("*")):
             if not p.is_file():
                 continue

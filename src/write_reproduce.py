@@ -105,10 +105,16 @@ python src/make_docx.py
 ## ESM-2 checkpoint
 
 The language-model view needs the official fair-esm weights. Download once with
-`python -c "import esm; esm.pretrained.esm2_t12_35M_UR50D()"` and place the checkpoint at
-`<workspace>/.cache/esm2_t12_35M_UR50D.pt`, i.e. a `.cache` directory next to the `palm-dl/`
-checkout (the path both `src/esm_embed.py` and `src/scan_embed.py` expect). No other
-model weights are required; `src/af_features.py` downloads AlphaFold models on demand.
+`python -c "import esm; esm.pretrained.esm2_t12_35M_UR50D()"`, then copy **both** files from
+`torch.hub.get_dir()/checkpoints` into a `.cache` directory next to the `palm-dl/` checkout:
+
+- `<workspace>/.cache/esm2_t12_35M_UR50D.pt`
+- `<workspace>/.cache/esm2_t12_35M_UR50D-contact-regression.pt`
+
+The fair-esm local loader reads the companion contact-regression file at load time even though
+the downstream models do not predict contacts, so the two files must stay in the same directory.
+`src/esm_embed.py` and `src/scan_embed.py` both expect this path; `src/af_features.py` downloads
+AlphaFold models on demand.
 
 ## Release identity (v2.1)
 

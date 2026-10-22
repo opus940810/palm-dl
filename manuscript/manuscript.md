@@ -273,7 +273,7 @@ The pipeline is organised as 25 scripts in `src/` (pipeline table in the reposit
 
 ## Data and code availability
 
-The corrected v2.1 code, processed data (including the canonical fold assignments), out-of-fold predictions and proteome-wide scores are archived at Zenodo under the concept DOI 10.5281/zenodo.23455872 (latest version 2.1.1; the exact snapshot is pinned by GitHub tag v2.1) and available at GitHub tag v2.1 (https://github.com/opus940810/palm-dl; exact commit, file hashes and reproduction commands in docs/REPRODUCE.md). The superseded v1.0.0 release (DOI 10.5281/zenodo.23455873) predates the label correction and must not be used for the results reported here. The prediction service is available at [SERVICE-URL]. Supplementary Tables S1-S7 accompany the manuscript.
+The corrected v2.1 code, processed data (including the canonical fold assignments), out-of-fold predictions and proteome-wide scores are archived as version 2.1.2 (https://doi.org/10.5281/zenodo.23550005; concept DOI: 10.5281/zenodo.23455872) and available at GitHub tag v2.1 (https://github.com/opus940810/palm-dl; exact commit, file hashes and reproduction commands in docs/REPRODUCE.md). The superseded v1.0.0 release (DOI 10.5281/zenodo.23455873) predates the label correction and must not be used for the results reported here. The prediction service is available at [SERVICE-URL]. Supplementary Tables S1-S7 accompany the manuscript.
 
 ## Competing interests
 
