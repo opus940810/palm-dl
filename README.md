@@ -42,10 +42,11 @@ The service needs model artifacts in `models/` (not versioned). Regenerate them 
 
 ## Data and archive
 
-The exact UniProt 2026_03 snapshot used for the paper is included under `data/raw/`; re-running
+The exact UniProt 2026_03 snapshot used for the paper is included under `data/raw/` (and in the
+archived release); re-running
 `src/download_data.py` refreshes it from the live API, whose release may differ. The corrected
 v2.1 code and processed data live in this repository (tag v2.1) and are
-archived at Zenodo under the concept DOI 10.5281/zenodo.23455872 (version 2.1.0: 10.5281/zenodo.23537476). The earlier
+archived at Zenodo under the concept DOI 10.5281/zenodo.23455872 (version 2.1.0: 10.5281/zenodo.23537478). The earlier
 v1.0.0 record (10.5281/zenodo.23455873) predates the label correction and must not be used
 for the current results.
 

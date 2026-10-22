@@ -1,0 +1,12 @@
+{
+  "queries": {
+    "lipid": "(ft_lipid:*) AND (reviewed:true)",
+    "negatives": "(reviewed:true) AND (organism_id:9606) AND (NOT ft_lipid:*)"
+  },
+  "rows": {
+    "lipid": 9089,
+    "negatives": 19622
+  },
+  "fields": "accession,sequence,organism_id,protein_name,gene_names,ft_lipid,length,ft_signal,ft_topo_dom,reviewed",
+  "source": "UniProtKB REST stream"
+}

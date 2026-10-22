@@ -37,7 +37,9 @@ three hours, dominated by ESM embedding extraction.
 ```bash
 export PALMDL_THREADS=4          # PyTorch threads; 12 can stall on tiny batches
 
-python src/download_data.py      # UniProt 2026_03 snapshot   (~1 min)
+# Optional live refresh; overwrites the bundled 2026_03 snapshot (~1 min).
+# Skip this line to reproduce the paper from the bundled tables.
+# python src/download_data.py
 python src/build_dataset.py      # S-palmitoyl sites + negatives (~1 min)
 python src/splits.py             # cluster folds + species split (~2 min)
 
@@ -104,7 +106,8 @@ python src/make_docx.py
 
 The language-model view needs the official fair-esm weights. Download once with
 `python -c "import esm; esm.pretrained.esm2_t12_35M_UR50D()"` and place the checkpoint at
-`palm-dl/.cache/esm2_t12_35M_UR50D.pt` (the path `src/esm_embed.py` expects). No other
+`<workspace>/.cache/esm2_t12_35M_UR50D.pt`, i.e. a `.cache` directory next to the `palm-dl/`
+checkout (the path both `src/esm_embed.py` and `src/scan_embed.py` expect). No other
 model weights are required; `src/af_features.py` downloads AlphaFold models on demand.
 
 ## Release identity (v2.1)

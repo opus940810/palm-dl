@@ -15,7 +15,6 @@ results/scan/all_scores.csv
 results/scan/chunk_*.csv
 results/literature/xml/
 results/structure/af/
-data/raw/*.tsv
 
 # office / OS noise
 ~$*

@@ -16,7 +16,7 @@ OUT = ROOT / "dist" / "github"
 
 INCLUDE = [
     "src", "server", "deploy", "docs", "figures", "manuscript",
-    "data/processed",
+    "data/processed", "data/raw",
     "results/tables", "results/error_analysis",
     "results/literature/curated_sites.csv", "results/literature/filter_table.csv",
     "results/literature/metrics.json", "results/literature/recognition_metrics.json",
@@ -53,7 +53,6 @@ results/scan/all_scores.csv
 results/scan/chunk_*.csv
 results/literature/xml/
 results/structure/af/
-data/raw/*.tsv
 
 # office / OS noise
 ~$*
@@ -112,10 +111,11 @@ The service needs model artifacts in `models/` (not versioned). Regenerate them 
 
 ## Data and archive
 
-The exact UniProt 2026_03 snapshot used for the paper is included under `data/raw/`; re-running
+The exact UniProt 2026_03 snapshot used for the paper is included under `data/raw/` (and in the
+archived release); re-running
 `src/download_data.py` refreshes it from the live API, whose release may differ. The corrected
 v2.1 code and processed data live in this repository (tag v2.1) and are
-archived at Zenodo under the concept DOI 10.5281/zenodo.23455872 (version 2.1.0: 10.5281/zenodo.23537476). The earlier
+archived at Zenodo under the concept DOI 10.5281/zenodo.23455872 (version 2.1.0: 10.5281/zenodo.23537478). The earlier
 v1.0.0 record (10.5281/zenodo.23455873) predates the label correction and must not be used
 for the current results.
 
@@ -159,7 +159,7 @@ AlphaFold DB under CC BY 4.0.
 CITATION = """cff-version: 1.2.0
 message: If you use PalmDL, please cite the paper and the archived release.
 title: "PalmDL: a leakage-aware deep learning framework and benchmark for protein S-palmitoylation site prediction"
-version: 1.0.0
+version: 2.1.0
 authors:
   - family-names: "Ruan"
     given-names: "Yun"

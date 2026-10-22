@@ -226,6 +226,7 @@ def stage() -> None:
         ("results/structure/thirdview_summary.json", "05_results/structure"),
         ("results/structure/structure_summary.json", "05_results/structure"),
         ("results/literature/curated_sites.csv", "05_results/literature"),
+        ("results/literature/review_sheet.tsv", "05_results/literature"),
         ("results/literature/filter_table.csv", "05_results/literature"),
         ("results/literature/metrics.json", "05_results/literature"),
         ("results/leakage_ladder.csv", "05_results"),
