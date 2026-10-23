@@ -37,7 +37,7 @@ README = """# PalmDL 审阅包 / Reviewer package
 
 **日期 / Date:** {today}
 **稿件 / Manuscript:** PalmDL: a leakage-aware deep learning framework and benchmark for protein S-palmitoylation site prediction
-**代码与归档 / Code and archive:** https://github.com/opus940810/palm-dl （tag v2.1）｜ Zenodo concept DOI: 10.5281/zenodo.23455872（最新版 2.1.2）
+**代码与归档 / Code and archive:** https://github.com/opus940810/palm-dl （tag v2.1）｜ 冻结实验归档 v2.1.2: 10.5281/zenodo.23550005｜文档修订版 v2.1.3: 10.5281/zenodo.23570441
 
 > 归档与代码通过 concept DOI 固定；本次审阅以本包内容、GitHub tag v2.1 与 Zenodo 最新版 2.1.2 为准。
 
@@ -147,7 +147,7 @@ DATA_DICT = """# 数据字典 / Data dictionary
 | `tables/table5_hard.csv` | 硬负样本基准 |
 | `tables/table6_leakage.csv` | 四种划分的泄漏审计 |
 | `leakage_ladder.csv` | 同上（原始输出） |
-| `species_matrix_auc.csv` | 8×8 跨物种 AUC 矩阵 |
+| `species_matrix_auc.csv` | 6×6 跨物种 AUC 矩阵 |
 | `headline_stats.json` | bootstrap 置信区间与配对检验 |
 | `stats_vs_published.json` | 与 0.900 / 0.855 的 bootstrap 比较 |
 | `scan/fdr_summary.csv` | 全蛋白组 5 个 FDR 档位 |
@@ -172,7 +172,7 @@ FIGURE_LEGENDS = """# 图注 / Figure legends
 
 **Figure 1. 数据构成。** (a) 贡献位点最多的物种（人/小鼠高亮）；(b) 证据层级（455 实验 vs 3,969 推断，对数坐标）；(c) 正位点的拓扑注释。
 
-**Figure 2. 划分方式决定表观性能。** (a) 四种协议下的 AUC 与平衡 MCC；(b) 测试正样本中精确 31-aa 窗口出现在训练集的比例（随机/蛋白级 40–44%，聚类/物种 0%）。
+**Figure 2. 划分方式决定表观性能。** (a) 四种协议下的 AUC 与平衡 MCC；(b) 测试正样本中精确 31-aa 窗口出现在训练集的比例（随机位点级 41.1%、蛋白级 45.2%，聚类/物种 0）。
 
 **Figure 3. 聚类留出交叉验证的判别能力。** (a) ROC；(b) 精确率–召回，含 PWM、逻辑回归、随机森林、CNN、ESM-2 与 PalmDL 集成。
 

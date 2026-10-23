@@ -186,8 +186,8 @@ ZENODO = {
     "upload_type": "software",
     "description": ("Code, processed data, fold assignments and results for PalmDL: a "
                     "leakage-controlled benchmark, an ESM-2 + random-forest ensemble, a "
-                    "structure-aware variant, a proteome-wide FDR-controlled shortlist and a "
-                    "prediction service."),
+                    "six-species transfer matrix, a proteome-wide empirical candidate list, and a "
+                    "sequence-only prediction service."),
     "creators": [{"name": "Ruan, Yun", "affiliation": "[Affiliation]"}],
     "license": "MIT",
     "keywords": ["S-palmitoylation", "post-translational modification", "deep learning",
